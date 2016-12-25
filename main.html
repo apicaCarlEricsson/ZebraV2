@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="jquery-ui-min.css">
+    <link rel="stylesheet" href="jquery-ui.structure.min.css">
+    <link rel="stylesheet" href="jquery-ui.theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css">
+    <title>ZebraTester</title>
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js"></script>
+</head>
+<body>
+   <div class="ui fluid container">
+      <div class="ui hidden divider"></div>
+       <div class="ui massive attached tabular menu">
+           <div class="divider"></div>
+             <div class="ui middle aligned spaced medium image">
+              <img src="logga.png">
+            </div>
+            <div class="right menu">
+                <a class="active item" data-tab="build" data-vivaldi-spatnav-clickable="1">Build</a>
+                <a class="item" data-tab="run" data-vivaldi-spatnav-clickable="1">Run</a>
+                <a class="item" data-tab="analyze" data-vivaldi-spatnav-clickable="1">Analyze</a>
+                <a class="item" data-tab="empty" data-vivaldi-spatnav-clickable="1"></a>
+            </div>
+       </div>
+       <div class="ui bottom attached active tab segment" data-tab="build">
+            <div class="ui menu">
+                <div class="ui dropdown link item">
+                    <i class="list icon"></i>
+                    <span class="text">Menu</span>
+                    <div class="menu">
+                        <div class="header">File</div>
+                        <div class="item"><span class="text">New</span></div>
+                        <div class="item">Open...</div>
+                        <div class="item"><span class="text">Save</span></div>
+                        <div class="item">Save as...</div>
+                        <div class="divider"></div>
+                        <div class="header">Load Test</div>
+                        <div class="item">Quick Test</div>
+                        <div class="item">Generate Load Test</div>
+                        <div class="divider"></div>
+                        <div class="item">Clear Session</div>
+                    </div>
+                </div>
+                <div class="ui dropdown link item">
+                    <i class="book icon"></i>
+                    <span class="text">View</span>
+                    <div class="menu">
+                        <div class="header">Panels</div>
+                        <div class="item"><span class="text">Toggle Var Handler</span></div>
+                        <div class="item">Toggle Recorder</div>
+                        <div class="item">Toggle Project Navigator</div>
+                        <div class="divider"></div>
+                        <div class="header">Display</div>
+                        <div class="item">Original Item Numbers</div>
+                        <div class="item">Current Item Numbers</div>
+                        <div class="item">Runtime Configuration</div>
+                        <div class="item">Item Offset</div>
+                        <div class="item">Content Type</div>
+                        <div class="item">Content Verification</div>
+                    </div>
+                </div>
+                <div class="ui dropdown link item">
+                    <i class="filter icon"></i>
+                    <span class="text">Filter items</span>
+                    <div class="menu">      
+                        <div class="header">Sort by</div>
+                        <div class="item">Host</div>
+                        <div class="item">Content Type</div>
+                        <div class="item">Status Code</div>
+                        <div class="divider"></div>
+                        <div class="header">Exclude</div>
+                        <div class="item">Static Content</div>
+                        <div class="item">Cached Content</div>
+                        <div class="divider"></div>
+                        <div class="item">Clear Filter</div>
+                    </div>
+                </div>
+                <div class="right menu">
+                    <div class="item">
+                         <div class="ui icon input">
+                            <input type="text" placeholder="Search...">
+                            <i class="search link icon"></i>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            div#pageBreakSegments.ui.segments>div.ui.segment*6>div.ui.fluid.accordion>div.title{Page Break #$}+div.content>div#urlSegments.ui.segments>div.ui.segment*5>button#serialParallelButton.ui.right.floated.toggle.button{S}+div.accordion>div.title{URL #$}+div.content{www.apicasystem.com}
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="run">
+            Run
+        </div>
+        <div class="ui bottom attached tab segment" data-tab="analyze">
+            Analyze
+        </div>
+        
+   </div>
+    <script>
+        $(document).ready(function(e) {   
+            $('.right.menu .item').tab();
+            $('.sidebar').sidebar('toggle');
+            $('.dropdown').dropdown();
+            $('.ui.accordion').accordion();
+            var $toggle  = $('.ui.toggle.button');
+            $toggle.state({text: {inactive : 'S',active   : 'P'}});
+            $('#urlSegments').sortable({connectWith: "div#urlSegments.ui.segments"}).disableSelection();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+.ui.accordion .accordion {
+    margin: 0 0 0 !important;
+    padding: 0;
+}
+
+button#serialParallelButton.ui.right.floated.toggle.button.active{
+    background-color: blue!important;
+    color: white!important;
+}
+
+button#serialParallelButton.ui.right.floated.toggle.button{
+    background-color: red!important;
+    color: white!important;
+}
