@@ -11,13 +11,9 @@ public class Main {
 
         port(7880);
 
-        String testPath = "/Users/carlericsson/Desktop/\"New Zebra\"/\"New Design\"/ZebraV2/";
+        staticFiles.externalLocation(System.getProperty("user.dir")+"/web");
 
-        externalStaticFileLocation(testPath);
-
-        System.out.println(responder.renderContent(testPath+"main.html"));
-
-        get("/", (req, res) -> responder.renderContent(testPath+"main.html"));
+        get("/", (req, res) -> responder.renderContent("web/index.html"));
     }
 
 }
