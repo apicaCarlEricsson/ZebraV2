@@ -4,13 +4,15 @@
 }
 
 button#serialParallelButton.ui.right.floated.toggle.button.active{
-    background-color: blue!important;
+    background-color: rgba(17, 59, 154, 0.77)!important;
     color: white!important;
+    border: 3px solid rgba(34,36,38,.15)!important;
 }
 
 button#serialParallelButton.ui.right.floated.toggle.button{
-    background-color: red!important;
+    background-color: #d25256!important;
     color: white!important;
+    border: 3px solid rgba(34,36,38,.15)!important;
 }
 
 .ui-sortable-helper{
