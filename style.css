@@ -12,3 +12,7 @@ button#serialParallelButton.ui.right.floated.toggle.button{
     background-color: red!important;
     color: white!important;
 }
+
+.ui-sortable-helper{
+    border: 1px solid rgba(34,36,38,.15)!important;
+}
