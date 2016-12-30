@@ -1,0 +1,24 @@
+.ui.accordion .accordion {
+    margin: 0 0 0 !important;
+    padding: 0;
+}
+
+button#serialParallelButton.ui.right.floated.toggle.button.active{
+    background-color: rgba(17, 59, 154, 0.77)!important;
+    color: white!important;
+    border: 3px solid rgba(34,36,38,.15)!important;
+}
+
+button#serialParallelButton.ui.right.floated.toggle.button{
+    background-color: #d25256!important;
+    color: white!important;
+    border: 3px solid rgba(34,36,38,.15)!important;
+}
+
+.ui-sortable-helper{
+    border: 1px solid rgba(34,36,38,.15)!important;
+}
+
+#requestHeaderHead, #requestContentHead, #responseHeaderHead, #responseContentHead {
+    border-color:inherit!important;
+}

@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="/css/jquery-ui.structure.min.css" type="text/css">
     <link rel="stylesheet" href="/css/jquery-ui.theme.min.css" type="text/css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.css" type="text/css">
+    <link rel="stylesheet" href="/semantic/dist/semantic.min.css" type="text/css">
     <title>ZebraTester</title>
 </head>
-<body>
+<body class="pushable">
+<div class="pusher">
    <div class="ui fluid container">
       <div class="ui hidden divider"></div>
        <div class="ui massive attached tabular menu">
@@ -49,7 +50,7 @@
                     <div class="menu">
                         <div class="header">Panels</div>
                         <div class="item"><span class="text">Toggle Var Handler</span></div>
-                        <div class="item">Toggle Recorder</div>
+                        <div id='toggleRecorder' class="item">Toggle Recorder</div>
                         <div class="item">Toggle Project Navigator</div>
                         <div class="divider"></div>
                         <div class="header">Display</div>
@@ -86,291 +87,32 @@
                     </div>
                 </div>
             </div>
-            <div class="ui fluid container">
-                <div id="pageBreakSegments" class="ui segments">
-                    <div class="ui segment">
-                        <div class="ui fluid accordion">
-                            <div class="title">Page Break #1</div>
-                            <div class="content">
-                                <div id="urlSegments" class="ui segments">
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #1</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #2</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #3</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #4</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #5</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui segment">
-                        <div class="ui fluid accordion">
-                            <div class="title">Page Break #2</div>
-                            <div class="content">
-                                <div id="urlSegments" class="ui segments">
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #1</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #2</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #3</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #4</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #5</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui segment">
-                        <div class="ui fluid accordion">
-                            <div class="title">Page Break #3</div>
-                            <div class="content">
-                                <div id="urlSegments" class="ui segments">
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #1</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #2</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #3</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #4</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #5</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui segment">
-                        <div class="ui fluid accordion">
-                            <div class="title">Page Break #4</div>
-                            <div class="content">
-                                <div id="urlSegments" class="ui segments">
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #1</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #2</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #3</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #4</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #5</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui segment">
-                        <div class="ui fluid accordion">
-                            <div class="title">Page Break #5</div>
-                            <div class="content">
-                                <div id="urlSegments" class="ui segments">
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #1</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #2</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #3</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #4</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #5</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="ui segment">
-                        <div class="ui fluid accordion">
-                            <div class="title">Page Break #6</div>
-                            <div class="content">
-                                <div id="urlSegments" class="ui segments">
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #1</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #2</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #3</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #4</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                    <div class="ui segment">
-                                        <button id="serialParallelButton" class="circular ui right floated toggle button">S</button>
-                                        <div class="accordion">
-                                            <div class="title">URL #5</div>
-                                            <div class="content">www.apicasystem.com</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            div#pageBreakSegments.ui.segments>div.ui.segment*6>div.ui.fluid.accordion>div.title{Page Break #$}+div.content>div#urlSegments.ui.segments>div.ui.segment*5>button#serialParallelButton.circular.ui.right.floated.toggle.button{S}+div.accordion>div.title{URL #$}+div.content>div.ui.two.column.grid>div.row>div.column>div.ui.segments>div.ui.attached.yellow.segment>div.ui.medium.header{Request Header}^div.ui.attached.segment*5>b{Header: }+lorem3^^^div.column>div.ui.segments>div.ui.yellow.attached.segment>div.ui.medium.header{Request Content}^div.ui.attached.segment>lorem15^^^^div.row>div.column>div.ui.segments>div.ui.attached.olive.segment>div.ui.medium.header{Response Header}^div.ui.attached.segment*5>b{Header: }+lorem3^^^div.column>div.ui.segments>div.ui.olive.attached.segment>div.ui.medium.header{Response Content}^div.ui.attached.segment>lorem15
+            
+            <div class="ui two column centered grid">
+                <div id="recorderSpace" class="column"></div>
             </div>
-        </div>
+           
+           </div>
+            
         <div class="ui bottom attached tab segment" data-tab="run">
             Run
         </div>
         <div class="ui bottom attached tab segment" data-tab="analyze">
             Analyze
         </div>
-        
    </div>
+   </div>
+   <!-------- <div id="recorderToolbar" class="ui bottom inverted sidebar"><button id="recorderButton" class="ui button"><i class="play icon"></i>Record</button><div class="ui input"><input type="text" placeholder="Insert pagebreak..."></div></div> ---->
     <script src="/js/jquery-3.1.1.min.js" type="application/javascript"></script>
     <script src="/js/jquery-ui.min.js" type="application/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.6/semantic.min.js" type="application/javascript"></script>
+    <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
+    <script src="/js/mustache.min.js" type="application/javascript"></script>
     <script>
         $(document).ready(function(e) {   
             $('.right.menu .item').tab();
-            $('.sidebar').sidebar('toggle');
-            $('.dropdown').dropdown();
+            $('#recorderToolbar').sidebar('toggle').sidebar({context: $("div#recorderSpace")});
+            $('.dropdown').dropdown({action: 'select'});
             $('.ui.accordion').accordion();
             var $toggle  = $('.ui.toggle.button');
             $toggle.state({text: {inactive : 'S',active   : 'P'}});

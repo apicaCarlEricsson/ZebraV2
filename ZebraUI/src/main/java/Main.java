@@ -1,7 +1,10 @@
 /**
  * Created by carlericsson on 26/12/16.
  */
+import dfischer.utils.*;
+
 import java.net.URL;
+import dfischer.utils.PrxJob;
 
 import static spark.Spark.*;
 
@@ -11,9 +14,9 @@ public class Main {
 
         port(7880);
 
-        staticFiles.externalLocation(System.getProperty("user.dir")+"/web");
+        staticFiles.externalLocation(System.getProperty("user.dir")+"/web2");
 
-        get("/", (req, res) -> responder.renderContent("web/index.html"));
+        get("/", (req, res) -> responder.renderContent("web2/index.html"));
     }
 
 }

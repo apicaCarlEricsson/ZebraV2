@@ -1,3 +1,5 @@
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -12,6 +14,12 @@ import java.nio.file.Paths;
  */
 public class Responder {
 
+    Gson gson;
+
+    public Responder (){
+        gson = new Gson();
+    }
+
     public String renderContent(String htmlFile) {
         try {
             File file = new File(htmlFile);
@@ -20,6 +28,10 @@ public class Responder {
             e.printStackTrace();
             return null;
         }
+
+    }
+
+    public String  (){
 
     }
 
