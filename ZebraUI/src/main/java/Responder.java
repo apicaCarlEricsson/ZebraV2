@@ -31,9 +31,7 @@ public class Responder {
 
     }
 
-    public String  (){
 
-    }
 
 
 }
