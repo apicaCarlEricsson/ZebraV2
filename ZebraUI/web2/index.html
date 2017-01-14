@@ -104,54 +104,88 @@
         </div>
    </div>
    </div>
-   <!-------- <div id="recorderToolbar" class="ui bottom inverted sidebar"><button id="recorderButton" class="ui button"><i class="play icon"></i>Record</button><div class="ui input"><input type="text" placeholder="Insert pagebreak..."></div></div> ---->
+   <!-------- <div id="recorderToolbar" class="ui bottom inverted sidebar"><button id="recorderButton" class="ui button"><i class="play icon"></i>Record</button><div class="ui input"><input type="text" placeholder="Insert pagebreak..."></div></div> {{pageBreak.comment}}---->
     <script src="/js/jquery-3.1.1.min.js" type="application/javascript"></script>
     <script src="/js/jquery-ui.min.js" type="application/javascript"></script>
     <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
-    <script src="/js/mustache.min.js" type="application/javascript"></script>
+    <script src="/js/handlebars-v4.0.5.js" type="application/javascript"></script>
     <script>
-        $(document).ready(function(e) {   
+        $('.accordion').click(console.log('I am clicked'));
+        $(document).ready(function(e) {  
+            $.ajax({url: "prxMetaData", success: function(result){
+                $('#pageBreakSegments').html(renderList(result));
+            }});
+            
             $('.right.menu .item').tab();
             $('#recorderToolbar').sidebar('toggle').sidebar({context: $("div#recorderSpace")});
             $('.dropdown').dropdown({action: 'select'});
-            $('.ui.accordion').accordion();
             var $toggle  = $('.ui.toggle.button');
             $toggle.state({text: {inactive : 'S',active   : 'P'}});
             $("div[id^='urlSeg']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
             $("div[id^='pageBreakSeg']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
+            $('.accordion').accordion();
             
-            function renderPrx() {
+            function renderList (data){
+                var html='';
+                var dataArray = data.proxyData;
+                
+                for (var i = 0; i < dataArray.length;++i){
+                    var proxyRecord = dataArray[i];
+
+                    if ('httpPageBreak' in proxyRecord){
+                        if (i>0){
+                            html += '</div></div></div></div>';
+                        }
+                        html += '<div id="pageBreakSegment" class="ui segment">'+'<div class="ui fluid accordion">'+
+                        '<div class="title">'+proxyRecord.httpPageBreak.comment+'</div>'+
+                        '<div class="content"><div id="urlSegments" class="ui segments">';
+                    }
+                    else{
+                        html += '<div id="urlSegment" class="ui segment">'+
+                            '<button id="serialParallelButton" class="circular ui right floated toggle button">S</button>'+
+                            '<div class="accordion">'+
+                            '<div class="title">'+proxyRecord.httpRequest.urlProtocol+'://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content"></div>'+
+                            '</div></div>';
+                            
+                            
+                    }
+                    
+                }
+                html += '</div></div></div></div>';
+                return html;
+            }
+            
+            
+            
+            
+            /*$.ajax({url: "prxMetaData", success: function(result){
                 var template = $('#template').html();
-                Mustache.parse(template);
-                var rendered = Mustache.render(template, fetchPrx)
-                $('#pageBreakSegments').html(rendered);
-            }
+                var compTemplate = Handlebars.compile(template);
+                $('#pageBreakSegments').html(compTemplate(result));
+            }});*/
             
-            var fetchPrx = function() {
-                $.ajax({url: "prxMetaData", success: function(result){
-                    return result;
-                }});
-            }
-            
-            renderPrx();
         });
     </script>
-    <script id="template" type="x-tmpl-mustache">
-        {{#proxyData}}
-            {{#httpPageBreak}}
+    <script id="template" type="text/x-handlebars-template">
+        {{#each proxyData}}
+            {{#if httpPageBreak}}
                 <div id="pageBreakSegment" class="ui segment">
                     <div class="ui fluid accordion">
-                        <div class="title">{{comment}}</div>
+                        <div class="title">{{httpPageBreak.comment}}</div>
                         <div class="content"></div>
                     </div>
                 </div>
-            {{/httpPageBreak}}
-        {{/proxyData}}
+            {{/if}}
+        {{/each}}
     </script>
-    <script>
-        $(document).ready(function(e) {   
-            
-        });
-    </script>
+    <script id="partial" type="text/x-handlebars-template">    
+        {{#each proxyData}}
+            {{#if httpRequest}}
+                <div id="urlSegments" class="ui segments">
+                    
+                </div>
+            {{/if}}
+          {{/each}}
+</script>
 </body>
 </html>

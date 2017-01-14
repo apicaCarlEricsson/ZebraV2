@@ -46,7 +46,11 @@ public class Main {
 
         get("/", (req, res) -> responder.renderContent("web2/index.html"));
 
-        get("/prxMetaData", (req, res) -> gsonPrxDat.toJson(worker.prxdat));
+        get("/prxMetaData", (req, res) -> {
+            res.type("application/json");
+            return gsonPrxDat.toJson(worker.prxdat);
+                }
+            );
 
         get("/prxRecordData", (req, res) -> gsonPrxRecord.toJson(worker.prxdat.getProxyData()));
 
