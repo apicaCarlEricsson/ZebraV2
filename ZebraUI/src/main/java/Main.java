@@ -18,23 +18,37 @@ public class Main {
 
         PrxdatWorker worker = new PrxdatWorker();
 
-        Gson gson = new GsonBuilder()
+        Gson gsonPrxDat = new GsonBuilder()
                 .setExclusionStrategies(new PrxExclStrat())
+                .create();
+
+        Gson gsonPrxRecord = new GsonBuilder()
+                .setExclusionStrategies(new PrxRecordExclStrat())
                 .create();
 
         ProxyDataRecord record=(ProxyDataRecord)worker.stuff().get(1);
 
         //System.out.println(gson.toJson(record.getHttpRequest()));
 
-        System.out.println(gson.toJson(worker.prxdat));
+       // System.out.println(gsonPrxDat.toJson(worker.prxdat));
+
+        /*for (Object o:worker.stuff()){
+            System.out.println();
+
+            System.out.println(gsonPrxRecord.toJson((ProxyDataRecord)o));
+        }*/
+
+        //System.out.println(gsonPrxRecord.toJson(worker.prxdat.getProxyData()));
 
         port(7880);
 
         staticFiles.externalLocation(System.getProperty("user.dir")+"/web2");
 
-        //get("/", (req, res) -> responder.renderContent("web2/index.html"));
+        get("/", (req, res) -> responder.renderContent("web2/index.html"));
 
-        //get("/rest", (req, res) -> );
+        get("/prxMetaData", (req, res) -> gsonPrxDat.toJson(worker.prxdat));
+
+        get("/prxRecordData", (req, res) -> gsonPrxRecord.toJson(worker.prxdat.getProxyData()));
 
 
     }
