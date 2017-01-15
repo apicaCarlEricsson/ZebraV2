@@ -110,21 +110,49 @@
     <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
     <script src="/js/handlebars-v4.0.5.js" type="application/javascript"></script>
     <script>
-        $('.accordion').click(console.log('I am clicked'));
         $(document).ready(function(e) {  
             $.ajax({url: "prxMetaData", success: function(result){
                 $('#pageBreakSegments').html(renderList(result));
+                $('.accordion').accordion();
+                var $toggle  = $('.ui.toggle.button');
+                $toggle.state({text: {inactive : 'S',active   : 'P'}});
+                $("div[id^='urlSeg']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
+                $("div[id^='pageBreakSeg']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
             }});
             
             $('.right.menu .item').tab();
             $('#recorderToolbar').sidebar('toggle').sidebar({context: $("div#recorderSpace")});
             $('.dropdown').dropdown({action: 'select'});
-            var $toggle  = $('.ui.toggle.button');
-            $toggle.state({text: {inactive : 'S',active   : 'P'}});
-            $("div[id^='urlSeg']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
-            $("div[id^='pageBreakSeg']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
-            $('.accordion').accordion();
             
+            //Selects the correct label for content type
+            function pickContentLabel (contentType){
+                var label;
+                console.log(contentType);
+                if(typeof contentType === 'undefined'){
+                   label='<div id="contentTypeLabel" class="ui medium black label">N/A</div>'; 
+                }else if (contentType.includes('TEXT/HTML')){
+                    label='<div id="contentTypeLabel" class="ui medium blue label">HTML</div>';
+                }else if (contentType.includes('TEXT/CSS')){
+                    label='<div id="contentTypeLabel" class="ui medium red label">CSS</div>';
+                }else if (contentType.includes('APPLICATION/X-JAVASCRIPT')|| contentType.includes('APPLICATION/JAVASCRIPT')){
+                    label='<div id="contentTypeLabel" class="ui medium olive label">JS</div>';
+                }else if (contentType.includes('APPLICATION/JSON')){
+                    label='<div id="contentTypeLabel" class="ui medium green label">JSON</div>';
+                }else if (contentType.includes('IMAGE')){
+                    label='<div id="contentTypeLabel" class="ui medium orange label">IMAGE</div>';
+                }else{
+                    label='<div id="contentTypeLabel" class="ui medium grey label">OTHER</div>';
+                }
+                return label;
+            }
+            
+            //Chooses the correct HTTP Response code
+            function pickStatusCode(statusCode, statusMessage){
+                var statusLabel = '<b>'+statusCode+' '+statusMessage+'</b>';
+                return statusLabel;
+            }
+            
+            //Renders the list of URL calls and page breaks
             function renderList (data){
                 var html='';
                 var dataArray = data.proxyData;
@@ -136,15 +164,20 @@
                         if (i>0){
                             html += '</div></div></div></div>';
                         }
-                        html += '<div id="pageBreakSegment" class="ui segment">'+'<div class="ui fluid accordion">'+
+                        html += '<div class="ui segment">'+'<div class="ui fluid accordion">'+
                         '<div class="title">'+proxyRecord.httpPageBreak.comment+'</div>'+
                         '<div class="content"><div id="urlSegments" class="ui segments">';
                     }
                     else{
                         html += '<div id="urlSegment" class="ui segment">'+
                             '<button id="serialParallelButton" class="circular ui right floated toggle button">S</button>'+
-                            '<div class="accordion">'+
-                            '<div class="title">'+proxyRecord.httpRequest.urlProtocol+'://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content"></div>'+
+                            '<div class="ui fluid accordion">'+
+                            '<div class="title">'+
+                            pickContentLabel(proxyRecord.httpResponse.headerContentType)+
+                            pickStatusCode(proxyRecord.httpResponse.headerServerStatus, proxyRecord.httpResponse.headerServerStatusText)+
+                            ' '+
+                            proxyRecord.httpRequest.urlProtocol+
+                            '://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content"></div>'+
                             '</div></div>';
                             
                             
@@ -154,15 +187,6 @@
                 html += '</div></div></div></div>';
                 return html;
             }
-            
-            
-            
-            
-            /*$.ajax({url: "prxMetaData", success: function(result){
-                var template = $('#template').html();
-                var compTemplate = Handlebars.compile(template);
-                $('#pageBreakSegments').html(compTemplate(result));
-            }});*/
             
         });
     </script>

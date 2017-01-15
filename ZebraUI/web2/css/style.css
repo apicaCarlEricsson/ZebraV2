@@ -22,3 +22,14 @@ button#serialParallelButton.ui.right.floated.toggle.button{
 #requestHeaderHead, #requestContentHead, #responseHeaderHead, #responseContentHead {
     border-color:inherit!important;
 }
+
+.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.ui#contentTypeLabel.label {
+    margin-right: 1em;
+}
+
