@@ -116,8 +116,8 @@
                 $('.ui.accordion').accordion();
                 var $toggle  = $('.ui.toggle.button');
                 $toggle.state({text: {inactive : 'S',active   : 'P'}});
-                $("div[id^='urlSeg']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
-                $("div[id^='pageBreakSeg']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
+                $("div[id^='urlSegments']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
+                $("div[id^='pageBreakSegments']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
             }});
             
             $('.right.menu .item').tab();
@@ -169,7 +169,8 @@
                     }
                     else{
                         html += '<div id="urlSegment" class="ui segment">'+
-                            '<button id="serialParallelButton" class="circular ui right floated toggle button">S</button>'+
+                            '<div class="item"><button id="serialParallelButton" class="ui tiny right floated toggle button">S</button></div>'+
+                            '<div class="item" id="urlSizeText"><b>'+calculatePageSize(proxyRecord.httpResponse.headerContentLength)+'</b></div>'+
                             '<div class="accordion">'+
                             '<div class="title">'+
                             pickContentLabel(proxyRecord.httpResponse.headerContentType)+
@@ -177,7 +178,7 @@
                             ' '+
                             proxyRecord.httpRequest.urlProtocol+
                             '://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content">'+
-                            renderURLCall(proxyRecord.httpRequest)+
+                            renderURLCall(proxyRecord)+
                             '</div>'+
                             '</div></div>';
                             
@@ -187,6 +188,22 @@
                 }
                 html += '</div></div></div></div>';
                 return html;
+            }
+            
+            //Calculates the response content size
+            function calculatePageSize(headerContentLength){
+                
+                var sizeB=headerContentLength;
+                var sizeKB = headerContentLength/1024;
+                
+                if (sizeKB>1024){
+                    var sizeMB = sizeKB/1024;
+                    return Math.round(sizeMB * 10)/10 + ' MB';
+                }else if(sizeKB<1){
+                    return Math.round(sizeB * 10)/10 + ' B';
+                }else{
+                    return Math.round(sizeKB * 10)/10 + ' KB';
+                }
             }
             
             //Renders individual data for URL call
@@ -199,15 +216,38 @@
                     '<div class="ui segments">'+
                     '<div id="requestHeaderHead" class="ui attached yellow inverted segment">'+
                     '<div class="ui medium header">Request Header</div></div>'+
-                    renderHeaders(urlCall.header)+'</div></div>'+
-                    renderRequestContent(urlCall)+
-                    '</div></div>';                    
+                    renderRequestHeaders(urlCall.httpRequest.header)+'</div></div>'+
+                    renderRequestContent(urlCall.httpRequest)+
+                    '</div><div class="column">'+
+                    '<div class="ui segments">'+
+                    '<div id="requestHeaderHead" class="ui attached olive inverted segment">'+
+                    '<div class="ui medium header">Response Header</div></div>'+
+                    renderResponseHeaders(urlCall.httpResponse.header)+'</div></div>'+
+                    '</div>';                    
                 
                 return output;
             }
             
-            //Renders the individual headers for a URL call
-            function renderHeaders(urlCall){
+            //Renders the individual response headers for a URL call
+            function renderResponseHeaders(urlCall){
+                var output = '';
+                output += '<div id="headerSegment" class="ui attached segment">'+
+                            '<b>'+urlCall[0]+'</b></div>';
+                
+                for (var i = 1; i<urlCall.length;++i){
+                    if(typeof urlCall[i] !== 'undefined'){
+                        var headerSplit = urlCall[i].split(": ");
+                        output += '<div id="headerSegment" class="ui attached segment">'+
+                            '<b>'+headerSplit[0]+': </b>'+headerSplit[1]+'</div>';
+                    }
+                    
+                }
+                
+                return output;
+            }
+            
+            //Renders the individual request headers for a URL call
+            function renderRequestHeaders(urlCall){
                 var output = '';
                 
                 for (var i = 0; i<urlCall.length;++i){
@@ -221,12 +261,29 @@
                 
                 return output;
             }
+            //Renders the responseContent
+            function renderRequestContent(urlCall){
+                var output='';
+                
+                if("content" in urlCall){
+                    output+='<div class="column"><div class="ui segments">'+
+                    '<div id="requestContentHead" class="ui olive inverted attached segment">'+
+                    '<div class="ui medium header">Response Content</div>'+
+                    '</div><div id="responseContentSegment" class="ui attached segment">'+
+                        byteToString(urlCall.content)+
+                        '</div>'+'</div></div>';
+                }
+                else{
+                    output+='';
+                }
+                return output;
+            }
+            
             //Renders the requestContent
             function renderRequestContent(urlCall){
                 var output='';
                 
                 if("content" in urlCall){
-                    console.log("Hej");
                     output+='<div class="column"><div class="ui segments">'+
                     '<div id="requestContentHead" class="ui yellow inverted attached segment">'+
                     '<div class="ui medium header">Request Content</div>'+

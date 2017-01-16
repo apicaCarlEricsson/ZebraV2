@@ -44,3 +44,11 @@ button#serialParallelButton.ui.right.floated.toggle.button{
     text-overflow: ellipsis; 
 }
 
+.ui#urlSegment.segment{
+    padding: 0.5em;
+}
+
+.item#urlSizeText {
+    float: right;
+    padding: 0.5em;
+}
