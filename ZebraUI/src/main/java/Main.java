@@ -4,6 +4,7 @@
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dfischer.proxysniffer.HttpPageBreak;
+import dfischer.proxysniffer.HttpRequest;
 import dfischer.proxysniffer.ProxyDataRecord;
 import dfischer.utils.*;
 
@@ -24,6 +25,7 @@ public class Main {
 
         Gson gsonPrxRecord = new GsonBuilder()
                 .setExclusionStrategies(new PrxRecordExclStrat())
+                .registerTypeAdapter(HttpRequest.class, new HttpRequestSerializer())
                 .create();
 
         ProxyDataRecord record=(ProxyDataRecord)worker.stuff().get(1);

@@ -113,7 +113,7 @@
         $(document).ready(function(e) {  
             $.ajax({url: "prxMetaData", success: function(result){
                 $('#pageBreakSegments').html(renderList(result));
-                $('.accordion').accordion();
+                $('.ui.accordion').accordion();
                 var $toggle  = $('.ui.toggle.button');
                 $toggle.state({text: {inactive : 'S',active   : 'P'}});
                 $("div[id^='urlSeg']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
@@ -127,7 +127,6 @@
             //Selects the correct label for content type
             function pickContentLabel (contentType){
                 var label;
-                console.log(contentType);
                 if(typeof contentType === 'undefined'){
                    label='<div id="contentTypeLabel" class="ui medium black label">N/A</div>'; 
                 }else if (contentType.includes('TEXT/HTML')){
@@ -171,13 +170,15 @@
                     else{
                         html += '<div id="urlSegment" class="ui segment">'+
                             '<button id="serialParallelButton" class="circular ui right floated toggle button">S</button>'+
-                            '<div class="ui fluid accordion">'+
+                            '<div class="accordion">'+
                             '<div class="title">'+
                             pickContentLabel(proxyRecord.httpResponse.headerContentType)+
                             pickStatusCode(proxyRecord.httpResponse.headerServerStatus, proxyRecord.httpResponse.headerServerStatusText)+
                             ' '+
                             proxyRecord.httpRequest.urlProtocol+
-                            '://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content"></div>'+
+                            '://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content">'+
+                            renderURLCall(proxyRecord.httpRequest)+
+                            '</div>'+
                             '</div></div>';
                             
                             
@@ -186,6 +187,62 @@
                 }
                 html += '</div></div></div></div>';
                 return html;
+            }
+            
+            //Renders individual data for URL call
+            function renderURLCall (urlCall){
+                var output='';
+                
+                output+='<div class="ui two column grid">'+
+                    '<div class="row">'+
+                    '<div class="column">'+
+                    '<div class="ui segments">'+
+                    '<div id="requestHeaderHead" class="ui attached yellow inverted segment">'+
+                    '<div class="ui medium header">Request Header</div></div>'+
+                    renderHeaders(urlCall.header)+'</div></div>'+
+                    renderRequestContent(urlCall)+
+                    '</div></div>';                    
+                
+                return output;
+            }
+            
+            //Renders the individual headers for a URL call
+            function renderHeaders(urlCall){
+                var output = '';
+                
+                for (var i = 0; i<urlCall.length;++i){
+                    if(typeof urlCall[i] !== 'undefined'){
+                        var headerSplit = urlCall[i].split(": ");
+                        output += '<div id="headerSegment" class="ui attached segment">'+
+                            '<b>'+headerSplit[0]+': </b>'+headerSplit[1]+'</div>';
+                    }
+                    
+                }
+                
+                return output;
+            }
+            //Renders the requestContent
+            function renderRequestContent(urlCall){
+                var output='';
+                
+                if("content" in urlCall){
+                    console.log("Hej");
+                    output+='<div class="column"><div class="ui segments">'+
+                    '<div id="requestContentHead" class="ui yellow inverted attached segment">'+
+                    '<div class="ui medium header">Request Content</div>'+
+                    '</div><div id="requestContentSegment" class="ui attached segment">'+
+                        byteToString(urlCall.content)+
+                        '</div>'+'</div></div>';
+                }
+                else{
+                    output+='';
+                }
+                return output;
+            }
+            
+            //Converts bit array to String
+            function byteToString(array){
+                return String.fromCharCode.apply(null, array);
             }
             
         });

@@ -33,3 +33,14 @@ button#serialParallelButton.ui.right.floated.toggle.button{
     margin-right: 1em;
 }
 
+#headerSegment{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+#requestContentSegment{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
