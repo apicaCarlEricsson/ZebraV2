@@ -1,5 +1,6 @@
 import com.google.gson.*;
 import dfischer.femtowebserver.httpd.HttpRequest;
+import dfischer.femtowebserver.httpd.HttpResponse;
 
 import java.lang.reflect.Type;
 

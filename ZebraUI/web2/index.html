@@ -226,14 +226,17 @@
                     '<div class="ui medium header">Request Header</div></div>'+
                     renderRequestHeaders(urlCall.httpRequest.header)+'</div></div>'+
                     renderRequestContent(urlCall.httpRequest)+
-                    '</div><div class="column">'+
+                    '</div>'+
+                    '<div class="row">'+
+                    '<div class="column">'+
                     '<div class="ui segments">'+
                     '<div id="responseHeaderHead" class="ui attached olive inverted segment">'+
                     '<div class="ui medium header">Response Header</div></div>'+
                     renderResponseHeaders(urlCall.httpResponse.header)+'</div></div>'+
-                    '<div class="column" id="responseContentColumn'+index+'">'+
-                    '</div></div>';                    
-                
+                    '<div class="column">'+
+                    renderResponseContent(urlCall.httpResponse)+
+                    '</div></div></div>';  
+                                
                 return output;
             }
             
@@ -270,17 +273,91 @@
                 
                 return output;
             }
+            //Render the appropriate response according to the content type
+            function renderContent(urlCall){
+                var output = '';
+                var contentType = urlCall.headerContentType;
+                
+                
+                if(typeof(contentType) == 'undefined'){
+                    output='';
+                }else if (contentType.includes("FONT-WOFF")){
+                    output='';
+                }else if (contentType.includes('IMAGE')){
+                    output='<img src="data:'+contentType.toLowerCase+';base64,"'+
+                        base64ArrayBuffer(urlCall.content)+'">';
+                }else{
+                   console.log(urlCall);
+                    output=byteToString(urlCall.content);
+                    
+                }
+                return output;
+            }
+            
+            //Converts byte array to base64
+            function base64ArrayBuffer(arrayBuffer) {
+              var base64    = '';
+              var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+              var bytes         = new Uint8Array(arrayBuffer);
+              var byteLength    = bytes.byteLength;
+              var byteRemainder = byteLength % 3;
+              var mainLength    = byteLength - byteRemainder;
+
+              var a, b, c, d;
+              var chunk;
+
+              // Main loop deals with bytes in chunks of 3
+              for (var i = 0; i < mainLength; i = i + 3) {
+                // Combine the three bytes into a single integer
+                chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
+
+                // Use bitmasks to extract 6-bit segments from the triplet
+                a = (chunk & 16515072) >> 18 // 16515072 = (2^6 - 1) << 18
+                b = (chunk & 258048)   >> 12 // 258048   = (2^6 - 1) << 12
+                c = (chunk & 4032)     >>  6 // 4032     = (2^6 - 1) << 6
+                d = chunk & 63               // 63       = 2^6 - 1
+
+                // Convert the raw binary segments to the appropriate ASCII encoding
+                base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
+              }
+
+              // Deal with the remaining bytes and padding
+              if (byteRemainder == 1) {
+                chunk = bytes[mainLength];
+
+                a = (chunk & 252) >> 2 // 252 = (2^6 - 1) << 2
+
+                // Set the 4 least significant bits to zero
+                b = (chunk & 3)   << 4 // 3   = 2^2 - 1
+
+                base64 += encodings[a] + encodings[b] + '==';
+              } else if (byteRemainder == 2) {
+                chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
+
+                a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
+                b = (chunk & 1008)  >>  4; // 1008  = (2^6 - 1) << 4
+
+                // Set the 2 least significant bits to zero
+                c = (chunk & 15)    <<  2; // 15    = 2^4 - 1
+
+                base64 += encodings[a] + encodings[b] + encodings[c] + '=';
+              }
+
+              return base64;
+            }
+            
             //Renders the responseContent
             function renderResponseContent(urlCall){
                 var output='';
                 
-                if("content" in urlCall){
+                if("content" in urlCall && urlCall.content.length>0 && urlCall.content.length<10000){
                     output+='<div class="ui segments">'+
                     '<div id="requestContentHead" class="ui olive inverted attached segment">'+
                     '<div class="ui medium header">Response Content</div>'+
                     '</div><div id="responseContentSegment" class="ui attached segment">'+
-                        byteToString(urlCall.content)+
-                        '</div>'+'</div>';
+                        renderContent(urlCall)+
+                        '</div></div>';
                 }
                 else{
                     output+='';

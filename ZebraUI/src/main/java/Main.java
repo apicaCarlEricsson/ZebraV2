@@ -3,12 +3,10 @@
  */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import dfischer.jobcontroller.JobControllerMainThread;
 import dfischer.jobcontroller.JobControllerNetCmd;
-import dfischer.proxysniffer.HttpPageBreak;
-import dfischer.proxysniffer.HttpRequest;
-import dfischer.proxysniffer.ProxyDataRecord;
-import dfischer.proxysniffer.ProxySnifferOptions;
+import dfischer.proxysniffer.*;
 import dfischer.utils.*;
 
 import java.net.URL;
@@ -24,11 +22,7 @@ public class Main {
 
         Gson gsonPrxDat = new GsonBuilder()
                 .setExclusionStrategies(new PrxExclStrat())
-                .create();
-
-        Gson gsonPrxRecord = new GsonBuilder()
-                .setExclusionStrategies(new PrxRecordExclStrat())
-                .registerTypeAdapter(HttpRequest.class, new HttpRequestSerializer())
+                .registerTypeAdapter(HttpResponse.class, new HttpResponseSerializer())
                 .create();
 
         port(7880);
@@ -40,11 +34,17 @@ public class Main {
 
 
         //Returns most of the data tied to the PrxDat
-        get("/prxMetaData", (req, res) -> {
+        /*get("/prxMetaData", (req, res) -> {
             res.type("application/json");
             return gsonPrxDat.toJson(worker.fetchPrxDat());
                 }
-            );
+            );*/
+
+        get("/prxMetaData", (req, res) -> {
+                    res.type("application/json");
+                    return gsonPrxDat.toJson(worker.fetchPrxDat());
+                }
+        );
 
         //Returns the response data for a specific call
         get("/responseContent/:id", (req, res) -> {
