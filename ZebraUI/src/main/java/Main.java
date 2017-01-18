@@ -3,9 +3,12 @@
  */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dfischer.jobcontroller.JobControllerMainThread;
+import dfischer.jobcontroller.JobControllerNetCmd;
 import dfischer.proxysniffer.HttpPageBreak;
 import dfischer.proxysniffer.HttpRequest;
 import dfischer.proxysniffer.ProxyDataRecord;
+import dfischer.proxysniffer.ProxySnifferOptions;
 import dfischer.utils.*;
 
 import java.net.URL;
@@ -28,34 +31,27 @@ public class Main {
                 .registerTypeAdapter(HttpRequest.class, new HttpRequestSerializer())
                 .create();
 
-        ProxyDataRecord record=(ProxyDataRecord)worker.stuff().get(1);
-
-        //System.out.println(gson.toJson(record.getHttpRequest()));
-
-       // System.out.println(gsonPrxDat.toJson(worker.prxdat));
-
-        /*for (Object o:worker.stuff()){
-            System.out.println();
-
-            System.out.println(gsonPrxRecord.toJson((ProxyDataRecord)o));
-        }*/
-
-        //System.out.println(gsonPrxRecord.toJson(worker.prxdat.getProxyData()));
-
         port(7880);
 
         staticFiles.externalLocation(System.getProperty("user.dir")+"/web2");
 
+        //Renders the webPage
         get("/", (req, res) -> responder.renderContent("web2/index.html"));
 
+
+        //Returns most of the data tied to the PrxDat
         get("/prxMetaData", (req, res) -> {
             res.type("application/json");
-            return gsonPrxDat.toJson(worker.prxdat);
+            return gsonPrxDat.toJson(worker.fetchPrxDat());
                 }
             );
 
-        get("/prxRecordData", (req, res) -> gsonPrxRecord.toJson(worker.prxdat.getProxyData()));
-
+        //Returns the response data for a specific call
+        get("/responseContent/:id", (req, res) -> {
+                    res.type("application/json");
+                    return gsonPrxDat.toJson(worker.fetchResponseContent(Integer.parseInt(req.params(":id"))));
+                }
+        );
 
     }
 

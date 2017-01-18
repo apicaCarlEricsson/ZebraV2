@@ -31,6 +31,8 @@ button#serialParallelButton.ui.right.floated.toggle.button{
 
 .ui#contentTypeLabel.label {
     margin-right: 1em;
+    min-width: 5em!important;
+    text-align: center!important;
 }
 
 #headerSegment{
@@ -45,7 +47,7 @@ button#serialParallelButton.ui.right.floated.toggle.button{
 }
 
 .ui#urlSegment.segment{
-    padding: 0.5em;
+    padding: 0.3em;
 }
 
 .item#urlSizeText {

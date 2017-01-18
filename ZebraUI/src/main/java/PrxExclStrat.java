@@ -16,7 +16,6 @@ public class PrxExclStrat implements ExclusionStrategy {
                 f.getDeclaringClass() == ProxyDataDump.class && f.getName().equals("sessionFilter") ||
                 f.getDeclaringClass() == ProxyDataDump.class && f.getName().equals("transactionHandler")||
                 f.getDeclaringClass() == HttpRequest.class && f.getName().equals("bin") ||
-                f.getDeclaringClass() == HttpResponse.class && f.getName().equals("contentVector") ||
                 f.getDeclaringClass() == HttpRequest.class && f.getName().equals("sslServerData"));
     }
 

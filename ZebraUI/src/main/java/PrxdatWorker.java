@@ -48,8 +48,13 @@ public class PrxdatWorker {
     }
 
 
-    public java.util.Vector stuff () {
-        return prxdat.getProxyData();
+    public ProxyDataDump fetchPrxDat () {
+        return prxdat;
+    }
+
+    public byte[] fetchResponseContent(int index){
+        ProxyDataRecord record = (ProxyDataRecord) prxdat.getProxyData().get(index);
+        return record.getHttpResponse().getContent();
     }
 
     private String getProjectName() {

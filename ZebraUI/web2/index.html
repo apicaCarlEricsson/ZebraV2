@@ -113,16 +113,21 @@
         $(document).ready(function(e) {  
             $.ajax({url: "prxMetaData", success: function(result){
                 $('#pageBreakSegments').html(renderList(result));
-                $('.ui.accordion').accordion();
+                $('.ui.accordion').accordion({
+                    duration: 500
+                });
                 var $toggle  = $('.ui.toggle.button');
                 $toggle.state({text: {inactive : 'S',active   : 'P'}});
                 $("div[id^='urlSegments']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
                 $("div[id^='pageBreakSegments']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
             }});
             
+            
+            
             $('.right.menu .item').tab();
             $('#recorderToolbar').sidebar('toggle').sidebar({context: $("div#recorderSpace")});
             $('.dropdown').dropdown({action: 'select'});
+            
             
             //Selects the correct label for content type
             function pickContentLabel (contentType){
@@ -163,22 +168,23 @@
                         if (i>0){
                             html += '</div></div></div></div>';
                         }
-                        html += '<div class="ui segment">'+'<div class="ui fluid accordion">'+
+                        html += '<div id="pageBreakSegment'+i+'" pageBreakID="'+ i +
+                            '" class="ui segment">'+'<div class="ui fluid accordion">'+
                         '<div class="title">'+proxyRecord.httpPageBreak.comment+'</div>'+
                         '<div class="content"><div id="urlSegments" class="ui segments">';
                     }
                     else{
-                        html += '<div id="urlSegment" class="ui segment">'+
+                        html += '<div id="urlSegment"urlID="'+i+'" class="ui segment">'+
                             '<div class="item"><button id="serialParallelButton" class="ui tiny right floated toggle button">S</button></div>'+
                             '<div class="item" id="urlSizeText"><b>'+calculatePageSize(proxyRecord.httpResponse.headerContentLength)+'</b></div>'+
-                            '<div class="accordion">'+
+                            '<div class="accordion" urlIDAccordion="'+i+'">'+
                             '<div class="title">'+
                             pickContentLabel(proxyRecord.httpResponse.headerContentType)+
                             pickStatusCode(proxyRecord.httpResponse.headerServerStatus, proxyRecord.httpResponse.headerServerStatusText)+
                             ' '+
                             proxyRecord.httpRequest.urlProtocol+
                             '://'+proxyRecord.httpRequest.urlHost+proxyRecord.httpRequest.urlFile+'</div>'+'<div class="content">'+
-                            renderURLCall(proxyRecord)+
+                            renderURLCall(proxyRecord, i)+
                             '</div>'+
                             '</div></div>';
                             
@@ -189,6 +195,8 @@
                 html += '</div></div></div></div>';
                 return html;
             }
+            
+            
             
             //Calculates the response content size
             function calculatePageSize(headerContentLength){
@@ -207,7 +215,7 @@
             }
             
             //Renders individual data for URL call
-            function renderURLCall (urlCall){
+            function renderURLCall (urlCall, index){
                 var output='';
                 
                 output+='<div class="ui two column grid">'+
@@ -220,10 +228,11 @@
                     renderRequestContent(urlCall.httpRequest)+
                     '</div><div class="column">'+
                     '<div class="ui segments">'+
-                    '<div id="requestHeaderHead" class="ui attached olive inverted segment">'+
+                    '<div id="responseHeaderHead" class="ui attached olive inverted segment">'+
                     '<div class="ui medium header">Response Header</div></div>'+
                     renderResponseHeaders(urlCall.httpResponse.header)+'</div></div>'+
-                    '</div>';                    
+                    '<div class="column" id="responseContentColumn'+index+'">'+
+                    '</div></div>';                    
                 
                 return output;
             }
@@ -262,16 +271,16 @@
                 return output;
             }
             //Renders the responseContent
-            function renderRequestContent(urlCall){
+            function renderResponseContent(urlCall){
                 var output='';
                 
                 if("content" in urlCall){
-                    output+='<div class="column"><div class="ui segments">'+
+                    output+='<div class="ui segments">'+
                     '<div id="requestContentHead" class="ui olive inverted attached segment">'+
                     '<div class="ui medium header">Response Content</div>'+
                     '</div><div id="responseContentSegment" class="ui attached segment">'+
                         byteToString(urlCall.content)+
-                        '</div>'+'</div></div>';
+                        '</div>'+'</div>';
                 }
                 else{
                     output+='';
