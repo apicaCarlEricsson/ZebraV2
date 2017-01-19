@@ -284,11 +284,10 @@
                 }else if (contentType.includes("FONT-WOFF")){
                     output='';
                 }else if (contentType.includes('IMAGE')){
-                    output='<img src="data:'+contentType.toLowerCase+';base64,"'+
-                        base64ArrayBuffer(urlCall.content)+'">';
+                    output='<img src="data:'+contentType.toLowerCase()+';base64,'+urlCall.content+'">';
+                    console.log(output);
                 }else{
-                   console.log(urlCall);
-                    output=byteToString(urlCall.content);
+                    output=urlCall.content;
                     
                 }
                 return output;
