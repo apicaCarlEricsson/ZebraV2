@@ -9,8 +9,7 @@
     <link rel="stylesheet" href="/semantic/dist/semantic.min.css" type="text/css">
     <title>ZebraTester</title>
 </head>
-<body class="pushable">
-<div class="pusher">
+<body>
    <div class="ui fluid container">
       <div class="ui hidden divider"></div>
        <div class="ui massive attached tabular menu">
@@ -32,10 +31,10 @@
                     <span class="text">Menu</span>
                     <div class="menu">
                         <div class="header">File</div>
-                        <div class="item"><span class="text">New</span></div>
-                        <div class="item">Open...</div>
-                        <div class="item"><span class="text">Save</span></div>
-                        <div class="item">Save as...</div>
+                        <div id="newScriptButton" class="item"><span class="text">New script...</span></div>
+                        <div id="openScriptButton" class="item">Open...</div>
+                        <div id="saveScriptButton" class="item"><span class="text">Save</span></div>
+                        <div id="saveAsScriptButton" class="item">Save as...</div>
                         <div class="divider"></div>
                         <div class="header">Load Test</div>
                         <div class="item">Quick Test</div>
@@ -78,7 +77,24 @@
                         <div class="item">Clear Filter</div>
                     </div>
                 </div>
+                
                 <div class="right menu">
+                   <div id="recorderTrigger" class="link item">Recorder</div>
+                   <div id="recorderToolbar" class="ui popup fluid wide">
+                    <div class="ui menu">
+                     <div id="record" class="link item">
+                         Start Recording
+                    </div>
+                    <div id="pageBreaker" class="item">
+                         <div class="ui input">
+                            <input type="text" placeholder="Add PageBreak...">
+                          </div>
+                    </div>
+                    <div id="clearRecord" class="link item">
+                         Clear Recording
+                    </div>
+                    </div>
+                    </div>
                     <div class="item">
                          <div class="ui icon input">
                             <input type="text" placeholder="Search...">
@@ -87,11 +103,9 @@
                     </div>
                 </div>
             </div>
+            <div id="listView" class="item">
             <div id="pageBreakSegments" class="ui segments">
             </div>
-            
-            <div class="ui two column centered grid">
-                <div id="recorderSpace" class="column"></div>
             </div>
            
            </div>
@@ -103,8 +117,6 @@
             Analyze
         </div>
    </div>
-   </div>
-   <!-------- <div id="recorderToolbar" class="ui bottom inverted sidebar"><button id="recorderButton" class="ui button"><i class="play icon"></i>Record</button><div class="ui input"><input type="text" placeholder="Insert pagebreak..."></div></div> {{pageBreak.comment}}---->
     <script src="/js/jquery-3.1.1.min.js" type="application/javascript"></script>
     <script src="/js/jquery-ui.min.js" type="application/javascript"></script>
     <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
@@ -118,14 +130,25 @@
                 });
                 var $toggle  = $('.ui.toggle.button');
                 $toggle.state({text: {inactive : 'S',active   : 'P'}});
-                $("div[id^='urlSegments']").sortable({connectWith: "div#urlSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
-                $("div[id^='pageBreakSegments']").sortable({connectWith: "div#pageBreakSegments.ui.segments", placeholder: "ui-state-highlight"}).disableSelection();
+                $("div[id^='urlSegments']").sortable({
+                    connectWith: "div#urlSegments.ui.segments", 
+                    placeholder: "ui-state-highlight",
+                    handle: ".title"
+                });
+                $("div[id^='pageBreakSegments']").sortable({
+                    connectWith: "div#pageBreakSegments.ui.segments", 
+                    placeholder: "ui-state-highlight",
+                    handle: ".title"
+                });
             }});
             
-            
-            
+            $('#recorderTrigger')
+              .popup({
+                popup : $('.popup'),
+                on    : 'click',
+                position : 'bottom right'
+              });
             $('.right.menu .item').tab();
-            $('#recorderToolbar').sidebar('toggle').sidebar({context: $("div#recorderSpace")});
             $('.dropdown').dropdown({action: 'select'});
             
             
@@ -221,7 +244,7 @@
                 output+='<div class="ui two column grid">'+
                     '<div class="row">'+
                     '<div class="column">'+
-                    '<div class="ui segments">'+
+                    '<div id="urlSegmentGroup" class="ui segments">'+
                     '<div id="requestHeaderHead" class="ui attached yellow inverted segment">'+
                     '<div class="ui medium header">Request Header</div></div>'+
                     renderRequestHeaders(urlCall.httpRequest.header)+'</div></div>'+
@@ -229,8 +252,8 @@
                     '</div>'+
                     '<div class="row">'+
                     '<div class="column">'+
-                    '<div class="ui segments">'+
-                    '<div id="responseHeaderHead" class="ui attached olive inverted segment">'+
+                    '<div id="urlSegmentGroup" class="ui segments">'+
+                    '<div id="responseHeaderHead" class="ui attached black inverted segment">'+
                     '<div class="ui medium header">Response Header</div></div>'+
                     renderResponseHeaders(urlCall.httpResponse.header)+'</div></div>'+
                     '<div class="column">'+
@@ -276,7 +299,7 @@
             //Render the appropriate response according to the content type
             function renderContent(urlCall){
                 var output = '';
-                var contentType = urlCall.headerContentType;
+                var contentType = urlCall.headerContentType
                 
                 
                 if(typeof(contentType) == 'undefined'){
@@ -285,74 +308,19 @@
                     output='';
                 }else if (contentType.includes('IMAGE')){
                     output='<img src="data:'+contentType.toLowerCase()+';base64,'+urlCall.content+'">';
-                    console.log(output);
                 }else{
-                    output=urlCall.content;
-                    
+                    output=urlCall.content;       
                 }
                 return output;
-            }
-            
-            //Converts byte array to base64
-            function base64ArrayBuffer(arrayBuffer) {
-              var base64    = '';
-              var encodings = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-
-              var bytes         = new Uint8Array(arrayBuffer);
-              var byteLength    = bytes.byteLength;
-              var byteRemainder = byteLength % 3;
-              var mainLength    = byteLength - byteRemainder;
-
-              var a, b, c, d;
-              var chunk;
-
-              // Main loop deals with bytes in chunks of 3
-              for (var i = 0; i < mainLength; i = i + 3) {
-                // Combine the three bytes into a single integer
-                chunk = (bytes[i] << 16) | (bytes[i + 1] << 8) | bytes[i + 2];
-
-                // Use bitmasks to extract 6-bit segments from the triplet
-                a = (chunk & 16515072) >> 18 // 16515072 = (2^6 - 1) << 18
-                b = (chunk & 258048)   >> 12 // 258048   = (2^6 - 1) << 12
-                c = (chunk & 4032)     >>  6 // 4032     = (2^6 - 1) << 6
-                d = chunk & 63               // 63       = 2^6 - 1
-
-                // Convert the raw binary segments to the appropriate ASCII encoding
-                base64 += encodings[a] + encodings[b] + encodings[c] + encodings[d];
-              }
-
-              // Deal with the remaining bytes and padding
-              if (byteRemainder == 1) {
-                chunk = bytes[mainLength];
-
-                a = (chunk & 252) >> 2 // 252 = (2^6 - 1) << 2
-
-                // Set the 4 least significant bits to zero
-                b = (chunk & 3)   << 4 // 3   = 2^2 - 1
-
-                base64 += encodings[a] + encodings[b] + '==';
-              } else if (byteRemainder == 2) {
-                chunk = (bytes[mainLength] << 8) | bytes[mainLength + 1];
-
-                a = (chunk & 64512) >> 10; // 64512 = (2^6 - 1) << 10
-                b = (chunk & 1008)  >>  4; // 1008  = (2^6 - 1) << 4
-
-                // Set the 2 least significant bits to zero
-                c = (chunk & 15)    <<  2; // 15    = 2^4 - 1
-
-                base64 += encodings[a] + encodings[b] + encodings[c] + '=';
-              }
-
-              return base64;
             }
             
             //Renders the responseContent
             function renderResponseContent(urlCall){
                 var output='';
                 
-                if("content" in urlCall && urlCall.content.length>0 && urlCall.content.length<10000){
-                    output+='<div class="ui segments">'+
-                    '<div id="requestContentHead" class="ui olive inverted attached segment">'+
+                if("content" in urlCall && urlCall.content.length>0){
+                    output+='<div id="urlSegmentGroup" class="ui segments">'+
+                    '<div id="requestContentHead" class="ui black inverted attached segment">'+
                     '<div class="ui medium header">Response Content</div>'+
                     '</div><div id="responseContentSegment" class="ui attached segment">'+
                         renderContent(urlCall)+
@@ -369,7 +337,7 @@
                 var output='';
                 
                 if("content" in urlCall){
-                    output+='<div class="column"><div class="ui segments">'+
+                    output+='<div class="column"><div id="urlSegmentGroup" class="ui segments">'+
                     '<div id="requestContentHead" class="ui yellow inverted attached segment">'+
                     '<div class="ui medium header">Request Content</div>'+
                     '</div><div id="requestContentSegment" class="ui attached segment">'+

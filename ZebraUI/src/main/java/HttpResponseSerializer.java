@@ -19,7 +19,6 @@ public class HttpResponseSerializer implements JsonSerializer<HttpResponse> {
         jsonObj.add("headerServerStatusText", context.serialize(httpResponse.getStatusText()));
         jsonObj.add("headerContentLength", context.serialize(httpResponse.getContentLength()));
 
-        System.out.println(createContent(httpResponse));
         return jsonObj;
 
     }
@@ -28,6 +27,11 @@ public class HttpResponseSerializer implements JsonSerializer<HttpResponse> {
         if (response.hasContent()){
             if (response.getContentType()!=null && response.getContentType().contains("IMAGE")){
                 return new String(Base64.getEncoder().encode(response.getContent()));
+            }else if(response.isCompressedContent()){
+                String content = new String(response.getDecompressedContent());
+                String content2 = content.replace("<","&lt;");
+                String content3 = content2.replace(">","&gt;");
+                return new String(content3);
             }else {
                 String content = new String(response.getContent());
                 String content2 = content.replace("<","&lt;");

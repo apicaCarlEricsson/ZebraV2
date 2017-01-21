@@ -68,7 +68,7 @@ public class PrxdatWorker {
 
 
     public void fetchAllData(){
-
+        prxdat.getVarSourceHandler().addVarSource(new P)
     }
 
 }

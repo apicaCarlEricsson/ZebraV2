@@ -40,10 +40,10 @@ button#serialParallelButton.ui.right.floated.toggle.button{
     overflow: hidden;
     text-overflow: ellipsis; 
 }
-#requestContentSegment{
-    white-space: nowrap;
-    overflow: hidden;
+#requestContentSegment #responseContentSegment{
+    overflow: scroll;
     text-overflow: ellipsis; 
+    word-wrap: break-all;
 }
 
 .ui#urlSegment.segment{
@@ -54,3 +54,14 @@ button#serialParallelButton.ui.right.floated.toggle.button{
     float: right;
     padding: 0.5em;
 }
+
+#urlSegmentGroup{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+#recorderToolbar{
+    width: 35.6em!important;
+}
+

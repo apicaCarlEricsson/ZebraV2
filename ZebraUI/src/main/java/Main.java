@@ -32,14 +32,6 @@ public class Main {
         //Renders the webPage
         get("/", (req, res) -> responder.renderContent("web2/index.html"));
 
-
-        //Returns most of the data tied to the PrxDat
-        /*get("/prxMetaData", (req, res) -> {
-            res.type("application/json");
-            return gsonPrxDat.toJson(worker.fetchPrxDat());
-                }
-            );*/
-
         get("/prxMetaData", (req, res) -> {
                     res.type("application/json");
                     return gsonPrxDat.toJson(worker.fetchPrxDat());
@@ -52,6 +44,9 @@ public class Main {
                     return gsonPrxDat.toJson(worker.fetchResponseContent(Integer.parseInt(req.params(":id"))));
                 }
         );
+
+        ProxySniffer console = new ProxySniffer();
+        console.main(new String[]{"-RESTAPIServer", "-ExecAgent"});
 
     }
 
