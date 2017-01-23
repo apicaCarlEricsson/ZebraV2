@@ -166,20 +166,20 @@
             $('#record').toggleClick(function(){
                 $(this).addClass('recording');
                 $(this).text('Stop Recording  ');
-                $.ajax({url:'?cmd=startRecording', success: function(result){
+                $.ajax({url:'startRecording', success: function(result){
                     console.log("Recording started successfully");
                 }});
             },function(){
                 $(this).removeClass('recording');
                 $(this).text('Start Recording');
-                $.ajax({url:'?cmd=stopRecording', success: function(result){
+                $.ajax({url:'stopRecording', success: function(result){
                     console.log("Recording stopped successfully");
                 }});
             });
             
             //Clears recording
             $('#clearRecord').click(function(){
-                $.ajax({url:'?cmd=clearRecording', success: function(result){
+                $.ajax({url:'clearRecording', success: function(result){
                     console.log("Recording cleared successfully");
                 }});
             });
@@ -214,6 +214,8 @@
                     calculateTotalResponseSize(result)+
                     '<div class="sub header">Total Size<br> Recieved</div></h3></div>'+
                     '</div>'
+                
+                console.log(result);
                 
                 return output;
             }

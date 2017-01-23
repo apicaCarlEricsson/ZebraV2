@@ -1,6 +1,3 @@
-/**
- * Created by carlericsson on 26/12/16.
- */
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -17,12 +14,9 @@ import static spark.Spark.*;
 public class Main {
     public static void main(String[] args) {
         Responder responder = new Responder();
+        Dispatcher dispatcher = new Dispatcher();
 
         PrxdatWorker worker = new PrxdatWorker();
-
-        Gson gsonPageBreak = new GsonBuilder()
-                .registerTypeAdapter(ProxyDataRecord.class, new PageBreakSerializer())
-                .create();
 
         Gson gsonPrxDat = new GsonBuilder()
                 .setExclusionStrategies(new PrxExclStrat())
@@ -41,6 +35,17 @@ public class Main {
                     return gsonPrxDat.toJson(worker.fetchPrxDat());
                 }
         );
+
+        get("/startRecording", (req, res) -> dispatcher.startRecording());
+
+        get("/stopRecording", (req, res) -> dispatcher.stopRecording());
+
+        get("/clearRecording", (req, res) -> dispatcher.clearRecording());
+
+        get("/getNumberOfRecordedItems", (req, res) -> {
+            res.type("application/json");
+            return  dispatcher.getNumberOfItems();
+        });
 
         //Returns the response data for a specific call
         get("/responseContent/:id", (req, res) -> {

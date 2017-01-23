@@ -1,8 +1,6 @@
 <component name="libraryTable">
   <library name="prxsniff">
-    <CLASSES>
-      <root url="jar:///Applications/ZebraTester/prxsniff.jar!/" />
-    </CLASSES>
+    <CLASSES />
     <JAVADOC />
     <SOURCES />
   </library>

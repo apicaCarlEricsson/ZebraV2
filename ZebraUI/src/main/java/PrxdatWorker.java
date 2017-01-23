@@ -38,6 +38,7 @@ public class PrxdatWorker {
         fileName = fileName.replace(".prxdat","");
 
         prxdat.setProjectName(fileName);
+        System.out.println(prxdat.getProjectName());
     }
 
     public PrxdatWorker(String fileName){
