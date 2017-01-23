@@ -62,6 +62,21 @@ button#serialParallelButton.ui.right.floated.toggle.button{
 
 
 #recorderToolbar{
-    width: 35.6em!important;
+    width: 35.7em!important;
+}
+
+h3.ui.header {
+    display: inline-block;
+    margin: 0 0 0 0;
+}
+
+div#record.link.item{
+    width: 9.2em;
+}
+
+div#record.link.item.recording{
+    background-color: red;
+    color: white;
+    width: 9.2em;
 }
 

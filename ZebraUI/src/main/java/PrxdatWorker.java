@@ -1,6 +1,6 @@
+import dfischer.femtowebserver.httpd.*;
 import dfischer.proxysniffer.*;
 import dfischer.webadmininterface.DirectoryNavigatorStoreContext;
-import org.jfree.data.xy.Vector;
 import java.util.*;
 
 import java.io.DataInputStream;
@@ -15,10 +15,17 @@ public class PrxdatWorker {
 
     ProxyDataDump prxdat;
 
+    PrxdatMirror mirror;
+
+
+
     public PrxdatWorker(){
+        String fileName = "LoginLogoutSingapore.prxdat";
         prxdat = new ProxyDataDump();
+        mirror = new PrxdatMirror(prxdat);
+
         try {
-            prxdat.readObject(new DataInputStream(new FileInputStream("LoginLogoutSingapore.prxdat")));
+            prxdat.readObject(new DataInputStream(new FileInputStream(fileName)));
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ProxySnifferVarHandlerDupScopeException e) {
@@ -28,6 +35,9 @@ public class PrxdatWorker {
         } catch (ProxySnifferVarHandlerKeywordException e) {
             e.printStackTrace();
         }
+        fileName = fileName.replace(".prxdat","");
+
+        prxdat.setProjectName(fileName);
     }
 
     public PrxdatWorker(String fileName){
@@ -43,6 +53,9 @@ public class PrxdatWorker {
         } catch (ProxySnifferVarHandlerKeywordException e) {
             e.printStackTrace();
         }
+        fileName= fileName.replace(".prxdat","");
+
+        prxdat.setProjectName(fileName);
 
         //DirectoryNavigatorStoreContext
     }
@@ -61,14 +74,43 @@ public class PrxdatWorker {
         return prxdat.getProjectName();
     }
 
-    private Collection getScriptList() {
+    public Collection fetchProxyData() {
         return prxdat.getProxyData();
     }
 
 
 
     public void fetchAllData(){
-        prxdat.getVarSourceHandler().addVarSource(new P)
     }
+
+    //Fetches a list containing only pageBreaks
+    public Vector<ProxyDataRecord> fetchPageBreaks (){
+        Vector pageBreakVector = new Vector<ProxyDataRecord>();
+
+        for (Object record : prxdat.getProxyData()){
+            if (((ProxyDataRecord) record).isDataTypePageBreak()){
+                pageBreakVector.add(record);
+            }
+        }
+        return pageBreakVector;
+    }
+
+    //Fetches a list containing only HTTP Data
+    public Vector<ProxyDataRecord> fetchUrlData() {
+        Vector urlVector = new Vector<ProxyDataRecord>();
+
+        for (Object record : prxdat.getProxyData()){
+            if (((ProxyDataRecord) record).isDataTypeHttpData()){
+                urlVector.add(record);
+            }
+        }
+        return urlVector;
+    }
+
+    public Vector fetchUrlDetails (){
+       return mirror.returnEntireList();
+    }
+
+
 
 }

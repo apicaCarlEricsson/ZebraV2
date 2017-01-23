@@ -20,6 +20,10 @@ public class Main {
 
         PrxdatWorker worker = new PrxdatWorker();
 
+        Gson gsonPageBreak = new GsonBuilder()
+                .registerTypeAdapter(ProxyDataRecord.class, new PageBreakSerializer())
+                .create();
+
         Gson gsonPrxDat = new GsonBuilder()
                 .setExclusionStrategies(new PrxExclStrat())
                 .registerTypeAdapter(HttpResponse.class, new HttpResponseSerializer())

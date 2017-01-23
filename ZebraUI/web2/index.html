@@ -104,6 +104,8 @@
                 </div>
             </div>
             <div id="listView" class="item">
+            <div id="metaDataView" class="ui basic segment">
+            </div>
             <div id="pageBreakSegments" class="ui segments">
             </div>
             </div>
@@ -124,7 +126,11 @@
     <script>
         $(document).ready(function(e) {  
             $.ajax({url: "prxMetaData", success: function(result){
-                $('#pageBreakSegments').html(renderList(result));
+                $('#metaDataView')
+                    .replaceWith
+                (renderProjectMetaData(result));
+                $('#pageBreakSegments')
+                    .html(renderList(result));
                 $('.ui.accordion').accordion({
                     duration: 500
                 });
@@ -141,6 +147,46 @@
                     handle: ".title"
                 });
             }});
+            $.fn.toggleClick = function(){
+                var methods = arguments, // store the passed arguments for future reference
+                    count = methods.length; // cache the number of methods 
+
+                //use return this to maintain jQuery chainability
+                return this.each(function(i, item){
+                    // for each element you bind to
+                    var index = 0; // create a local counter for that element
+                    $(item).click(function(){ // bind a click handler to that element
+                        return methods[index++ % count].apply(this,arguments); // that when called will apply the 'index'th method to that element
+                        // the index % count means that we constrain our iterator between 0 and (count-1)
+                    });
+                });
+            };
+            
+            //Handles toggling of the recorder
+            $('#record').toggleClick(function(){
+                $(this).addClass('recording');
+                $(this).text('Stop Recording  ');
+                $.ajax({url:'?cmd=startRecording', success: function(result){
+                    console.log("Recording started successfully");
+                }});
+            },function(){
+                $(this).removeClass('recording');
+                $(this).text('Start Recording');
+                $.ajax({url:'?cmd=stopRecording', success: function(result){
+                    console.log("Recording stopped successfully");
+                }});
+            });
+            
+            //Clears recording
+            $('#clearRecord').click(function(){
+                $.ajax({url:'?cmd=clearRecording', success: function(result){
+                    console.log("Recording cleared successfully");
+                }});
+            });
+            
+            
+            /*var $toggleRecord = $('#record');
+            $toggle.state({text: {inactive: "Start recording", active: 'Stop Recording'}});*/
             
             $('#recorderTrigger')
               .popup({
@@ -150,6 +196,42 @@
               });
             $('.right.menu .item').tab();
             $('.dropdown').dropdown({action: 'select'});
+            
+            //Render the metaData of the Project
+            function renderProjectMetaData(result){
+                var output;
+                
+                output='<div class="ui grid">'+
+                    '<div class="ten wide column"><h3 id="projectNameLabel" class="ui left aligned header">'+result.projectName+
+                    '<div class="sub header">Script Name</div></h3></div>'+
+                    '<div class="two wide column"><h3 id="projectURLCount" class="ui center aligned header">'+
+                    countURLCalls(result)+
+                    '<div class="sub header">Number of<br>URL calls</div></h3></div>'+
+                    '<div class="two wide column"><h3 id="projectSentSize" class="ui center aligned header">'+
+                    calculateTotalRequestSize(result)+
+                    '<div class="sub header">Total Size<br> Sent</div></h3></div>'+
+                    '<div class="two wide column"><h3 id="projectRecievedSize" class="ui center aligned header">'+
+                    calculateTotalResponseSize(result)+
+                    '<div class="sub header">Total Size<br> Recieved</div></h3></div>'+
+                    '</div>'
+                
+                return output;
+            }
+            
+            //Counts number of URL calls
+            function countURLCalls(result){
+                var count=0;
+        
+                for(var i = 0; i<result.proxyData.length; ++i){
+                    var record=result.proxyData[i];
+                    if ("httpRequest" in record){
+                        count=count+1;
+                    }
+                    
+                }
+                
+                return count;
+            } 
             
             
             //Selects the correct label for content type
@@ -219,16 +301,44 @@
                 return html;
             }
             
+            //Calculates the totalResponseSize
+            function calculateTotalResponseSize(result){
+                var contentSize=0;
+                
+                for (var i = 0; i<result.proxyData.length; ++i){
+                    var record = result.proxyData[i];
+                    if ("httpResponse" in record){
+                        contentSize=contentSize+record.httpResponse
+                            .headerContentLength;
+                    }
+                }
+                
+                return calculatePageSize(contentSize);
+            }
             
+            //Calculates the totalRequestSize
+            function calculateTotalRequestSize(result){
+                var contentSize=0;
+                
+                for (var i = 0; i<result.proxyData.length; ++i){
+                    var record = result.proxyData[i];
+                    if ("httpRequest" in record){
+                        contentSize=contentSize+record.httpRequest
+                            .requestTransmitSize;
+                    }
+                }
+                
+                return calculatePageSize(contentSize);
+            }
             
             //Calculates the response content size
             function calculatePageSize(headerContentLength){
                 
                 var sizeB=headerContentLength;
                 var sizeKB = headerContentLength/1024;
+                var sizeMB = sizeKB/1024;
                 
                 if (sizeKB>1024){
-                    var sizeMB = sizeKB/1024;
                     return Math.round(sizeMB * 10)/10 + ' MB';
                 }else if(sizeKB<1){
                     return Math.round(sizeB * 10)/10 + ' B';
