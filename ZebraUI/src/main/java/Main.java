@@ -36,23 +36,62 @@ public class Main {
                 }
         );
 
-        get("/startRecording", (req, res) -> dispatcher.startRecording());
+        get("/savePrxDat", (req, res) -> {
+            res.type("application/json");
+            if (!worker.isProjectSaved()) {
+                return "{isSaved: false}";
+            }
+            else{
+                worker.saveProject(worker.fetchPrxDat().getProjectName());
+                return "{isSaved: true}";
+            }
+        });
 
-        get("/stopRecording", (req, res) -> dispatcher.stopRecording());
+        get("/savePrxDat/:name", (req, res) -> {
+            res.type("application/json");
+            return worker.saveProject(req.params(":name"));
 
-        get("/clearRecording", (req, res) -> dispatcher.clearRecording());
+        });
+
+        get("/clearSession", (req, res) -> {
+            worker.clearPrxDat();
+            res.type("application/json");
+            return "{isCleared:true}";
+        });
+
+        get("/startRecording", (req, res) -> {
+            if (!worker.fetchPrxDat().getProjectName().equalsIgnoreCase("-1")){
+                dispatcher.loadSession(worker.fetchPrxDat().getProjectName());
+                return dispatcher.startRecording();
+            }else {
+                return dispatcher.startRecording();
+            }
+        });
+
+        get("/stopRecording", (req, res) -> {
+            String projectname = worker.fetchPrxDat().getProjectName();
+            dispatcher.stopRecording();
+            if (!(projectname.equalsIgnoreCase("-1")||projectname.equalsIgnoreCase("tempNull"))){
+                worker.reloadPrxDat(projectname, dispatcher.saveRecording(projectname));
+            }else{
+                worker.reloadPrxDat("tempNull", dispatcher.saveRecording());
+                worker.deleteTempDat();
+            }
+            res.type("application/json");
+            return "{isSaved:true}";
+        });
+
+        get("/clearRecording", (req, res) -> {
+            worker.clearPrxDat();
+            return dispatcher.clearRecording();
+        });
 
         get("/getNumberOfRecordedItems", (req, res) -> {
             res.type("application/json");
             return  dispatcher.getNumberOfItems();
         });
 
-        //Returns the response data for a specific call
-        get("/responseContent/:id", (req, res) -> {
-                    res.type("application/json");
-                    return gsonPrxDat.toJson(worker.fetchResponseContent(Integer.parseInt(req.params(":id"))));
-                }
-        );
+        get("/addPageBreakRec/:name", (req, res) -> dispatcher.insertPageBreak(req.params(":name"),3,35));
 
         ProxySniffer console = new ProxySniffer();
         console.main(new String[]{"-RESTAPIServer", "-ExecAgent"});

@@ -1,1 +1,10 @@
+<<<<<<< Updated upstream
 ZebraUI/prxsniff.key
+=======
+
+*.xml
+
+myGatlingProject/target/streams/runtime/unmanagedClasspath/$global/streams/export
+
+myGatlingProject/target/streams/runtime/managedClasspath/$global/streams/export
+>>>>>>> Stashed changes

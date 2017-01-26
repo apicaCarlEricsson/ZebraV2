@@ -31,6 +31,14 @@ public class Responder {
 
     }
 
+    class saveResponse {
+        String isSaved;
+
+        public saveResponse (){
+
+        }
+    }
+
 
 
 

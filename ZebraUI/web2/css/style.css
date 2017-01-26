@@ -60,6 +60,10 @@ button#serialParallelButton.ui.right.floated.toggle.button{
     text-overflow: ellipsis;
 }
 
+.container{
+    height: 100vh;
+}
+
 
 #recorderToolbar{
     width: 35.7em!important;
@@ -80,3 +84,27 @@ div#record.link.item.recording{
     width: 9.2em;
 }
 
+#saveDialog {
+    background: rgba(225, 0, 0, 0);
+    overflow: hidden;
+    box-shadow: none;
+}
+#saveDialogChild {
+    background: linear-gradient(to top right, black, grey);
+    overflow: hidden;
+    height: 10.5em;
+    border-radius: 0.5em;
+}
+
+body > div > div.ui.bottom.attached.active.tab.segment {
+    height: 100vh;
+}
+
+#saveAsLabel {
+    color: white;
+    margin-top: 1em;
+}
+
+#myLogo{
+    padding-left: 0.5em;
+}
