@@ -134,8 +134,8 @@
             </div>
            
            </div>
-            
-        <div class="ui bottom attached tab segment" data-tab="run">
+   </div>
+   <div class="ui bottom attached tab segment" data-tab="run">
             Run
         </div>
         <div class="ui bottom attached tab segment" data-tab="analyze">
@@ -194,7 +194,8 @@
                         // the index % count means that we constrain our iterator between 0 and (count-1)
                     });
                 });
-            };
+            }
+            
             //Trigger for saving script with specific name
             $("#saveAsScriptButton").click(function() {
                 $('.ui.sidebar').sidebar('show');
@@ -214,7 +215,6 @@
             
             //Save the script
             $( "#saveScriptButton" ).click(function() {
-            console.log('hi');
             $.ajax({url: "savePrxDat", success: function(result){
                   console.log(result);
                   if(!result.isSaved){
@@ -229,6 +229,7 @@
             //Refreshes the entire list again - usable after a change has been made on the java side
             function refreshHttpList (){
                 $.ajax({url: "prxMetaData", success: function(result){
+                console.log("proxyData" in result);
                 if ("proxyData" in result){
                     $('#metaDataView')
                         .replaceWith
@@ -260,21 +261,20 @@
                     delaySetup: false,
                     closable: false,
                     transition: 'overlay'
-                  })
-                }});
-            } 
+                  });
+                }});}
             
             //Handles toggling of the recorder
             $('#record').toggleClick(function(){
                 $(this).addClass('recording');
-                $(this).text('Stop Recording  ');
+                $(this).text('Stop Recording');
                 $.ajax({url:'startRecording', success: function(result){
                     console.log("Recording started successfully");
                 }});
             },function(){
                 $(this).removeClass('recording');
                 $(this).text('Start Recording');
-                $.ajax({url:'stopRecording', success: function(result){
+                $.ajax({url: 'stopRecording', success: function(result){
                     console.log("Recording stopped successfully");
                     refreshHttpList();
                 }});
@@ -284,6 +284,7 @@
             $('#clearRecord').click(function(){
                 $.ajax({url:'clearRecording', success: function(result){
                     console.log("Recording cleared successfully");
+                    refreshHttpList();
                 }});
             });
             
@@ -291,6 +292,7 @@
             $('#pageBreakerInput').keypress(function (e) {
                   if (e.which == 13) {
                     $.ajax({url:'addPageBreakRec/'+$('#pageBreakerInput').val(), success: function(result){
+                        refreshHttpList();
                         console.log('Page Break '+$('#pageBreakerInput').val()+' created successfully');
                     }});
                     return false;
@@ -588,26 +590,5 @@
             
         });
     </script>
-    <script id="template" type="text/x-handlebars-template">
-        {{#each proxyData}}
-            {{#if httpPageBreak}}
-                <div id="pageBreakSegment" class="ui segment">
-                    <div class="ui fluid accordion">
-                        <div class="title">{{httpPageBreak.comment}}</div>
-                        <div class="content"></div>
-                    </div>
-                </div>
-            {{/if}}
-        {{/each}}
-    </script>
-    <script id="partial" type="text/x-handlebars-template">    
-        {{#each proxyData}}
-            {{#if httpRequest}}
-                <div id="urlSegments" class="ui segments">
-                    
-                </div>
-            {{/if}}
-          {{/each}}
-</script>
 </body>
 </html>

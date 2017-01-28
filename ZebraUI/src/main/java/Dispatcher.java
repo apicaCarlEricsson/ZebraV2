@@ -25,7 +25,8 @@ public class Dispatcher {
     }
 
     public int loadSession(String name) throws Exception{
-        final InputStream stream = new FileInputStream(new File(name+".prxdat"));
+        final InputStream stream = new FileInputStream(name+".prxdat");
+        System.out.println("Inputstream success");
         final byte[] bytes = new byte[stream.available()];
         stream.read(bytes);
         stream.close();
@@ -34,6 +35,7 @@ public class Dispatcher {
                 .body(bytes)
                 .asJson();
 
+        System.out.println(jsonResponse);
         return jsonResponse.getStatus();
     }
 

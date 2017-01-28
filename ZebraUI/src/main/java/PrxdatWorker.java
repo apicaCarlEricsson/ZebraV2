@@ -1,6 +1,10 @@
 import dfischer.femtowebserver.httpd.*;
+import dfischer.generator.CreateLoadtestProgram;
 import dfischer.proxysniffer.*;
+import dfischer.utils.NextProxyConfig;
 import dfischer.webadmininterface.DirectoryNavigatorStoreContext;
+import dfischer.webadmininterface.DisplayListCache;
+
 
 import java.io.*;
 import java.nio.file.Files;
@@ -14,6 +18,8 @@ import java.util.Collection;
  * Created by carlericsson on 30/12/16.
  */
 public class PrxdatWorker {
+
+    DisplayListCache cache = new DisplayListCache();
 
     ProxyDataDump prxdat;
 
@@ -71,6 +77,26 @@ public class PrxdatWorker {
         prxdat = new ProxyDataDump();
 
         prxdat.setProjectName("-1");
+    }
+
+    public void generateLoadTest() throws Exception {
+        DisplayListCache cache = new DisplayListCache();
+
+        Vector dataRecord = prxdat.getProxyData();
+
+        for (int i = 0; i <dataRecord.size();i++ ){
+            cache.add((ProxyDataRecord) dataRecord.get(i),i,i);
+        }
+
+        ProxyAdminNetCmd admin = new ProxyAdminNetCmd("localhost",7998);
+
+        CreateLoadtestProgram generator = new CreateLoadtestProgram(new NextProxyConfig(), 2,prxdat.getComment()+".prxdat");
+
+        generator.write(cache,admin,prxdat.getVarSourceHandler(),prxdat.getVarHandler(),prxdat.getTransactionHandler(),prxdat.getExternalResources()
+                ,new PrintWriter(new FileOutputStream(prxdat.getComment()+".java")));
+
+        
+
     }
 
 

@@ -84,24 +84,45 @@ div#record.link.item.recording{
     width: 9.2em;
 }
 
+div#record.link.item{
+    background-color: rgb(124, 193, 66);
+    color: white;
+    width: 9.2em;
+}
+
 #saveDialog {
     background: rgba(225, 0, 0, 0);
     overflow: hidden;
     box-shadow: none;
 }
 #saveDialogChild {
-    background: linear-gradient(to top right, black, grey);
+    background: white;
+    color: black;
     overflow: hidden;
     height: 10.5em;
     border-radius: 0.5em;
+    border: 1px solid rgba(34,36,38,.15);
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
 }
 
 body > div > div.ui.bottom.attached.active.tab.segment {
     height: 100vh;
 }
 
+#saveDialogChild > .item {
+    border-top: 1px solid rgba(34,36,38,.15);
+}
+
+#savePrxDatAs{
+    color: black;
+}
+
+#savePrxDatAs:hover{
+    color: black;
+    background: rgba(124, 193, 66,.1)
+}
+
 #saveAsLabel {
-    color: white;
     margin-top: 1em;
 }
 
