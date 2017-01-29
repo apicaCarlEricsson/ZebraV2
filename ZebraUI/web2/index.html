@@ -17,6 +17,9 @@
              <div id="myLogo" class="ui middle aligned spaced large image">
               <img src="img/chameleonlogo.png">
             </div>
+            <div id="statusNotifier" class="ui positive hidden message">
+              <p></p>
+            </div>
             <div class="right menu">
                 <a class="active item" data-tab="build" data-vivaldi-spatnav-clickable="1">Build</a>
                 <a class="item" data-tab="run" data-vivaldi-spatnav-clickable="1">Run</a>
@@ -145,16 +148,14 @@
     <script src="/js/jquery-3.1.1.min.js" type="application/javascript"></script>
     <script src="/js/jquery-ui.min.js" type="application/javascript"></script>
     <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
-    <script src="/js/handlebars-v4.0.5.js" type="application/javascript"></script>
+    <script src="/js/finder.min.js" type="application/javascript"></script>
+    <script src="/js/jquery.finder.js" type="application/javascript"></script>
     <script>
         $(document).ready(function(e) {
             $.ajax({url: "prxMetaData", success: function(result){
                 if ("proxyData" in result){
-                    $('#metaDataView')
-                        .replaceWith
-                    (renderProjectMetaData(result));
-                    $('#pageBreakSegments')
-                        .html(renderList(result));
+                    $('#metaDataView').html(renderProjectMetaData(result));
+                    $('#pageBreakSegments').html(renderList(result));
                     $('.ui.accordion').accordion({
                         duration: 500
                     });
@@ -206,17 +207,35 @@
                 var saveAsName = $('#savePrxDatInput').val();
                 console.log(saveAsName);
                 if (saveAsName.length>0){
-                    $.ajax({url: 'savePrxDat/'+saveAsName , function(result){
+                    $.ajax({url: 'savePrxDat/'+saveAsName , success: function(result){
                         console.log('Script '+saveAsName+'.prxdat saved correctly');
+                        statusUpdate('Script '+saveAsName+'.prxdat saved correctly');
                     }});
                     $('.ui.sidebar').sidebar('hide');
                 }
+            });
+
+            //Open new script
+            $("#openScriptButton").click(function (){
+              var input = $(document.createElement('input'));
+              input.attr("type", "file");
+              input.trigger('click');
+              input.on("change",function() {
+                console.log("Change triggered");
+                var filename=input.val().split("\\fakepath\\")[1];
+                $.ajax({url:"openScript/"+filename, success:function(result){
+                  console.log("Open script triggered");
+                  statusUpdate("Script "+filename+" was opened");
+                  refreshHttpList();
+                }});
+          		});
             });
 
             //Generate the script
             $("#generateLoadTest").click(function(){
               $.ajax({url:"generateLoadTest", success: function(result){
                 console.log("Load test generated");
+                statusUpdate("Load test generated");
               }});
             });
 
@@ -225,11 +244,19 @@
             $.ajax({url: "savePrxDat", success: function(result){
                   if(result.isSaved){
                       console.log("Script saved");
+                      statusUpdate("Script saved");
                   }else{
                       $('.ui.sidebar').sidebar('show');
                   }
               }});
             });
+            //Gives status update
+            function statusUpdate (message){
+              $("#statusNotifier > p").text(message);
+              $("#statusNotifier").removeClass("hidden");
+              $("#statusNotifier").show();
+              $("#statusNotifier").delay(1000).fadeOut(3000);
+            }
 
             //Clears the entire list
             function clearHTTPList () {
@@ -240,7 +267,6 @@
             //Refreshes the entire list again - usable after a change has been made on the java side
             function refreshHttpList (){
                 $.ajax({url: "prxMetaData", success: function(result){
-                console.log(result.proxyData);
                 if (typeof result.proxyData !== 'undefined' && result.proxyData !== null){
                     $('#metaDataView').html(renderProjectMetaData(result));
                     $('#pageBreakSegments').html(renderList(result));
@@ -277,6 +303,7 @@
                 $(this).addClass('recording');
                 $(this).text('Stop Recording');
                 $.ajax({url:'startRecording', success: function(result){
+                    statusUpdate("Recording started successfully");
                     console.log("Recording started successfully");
                 }});
             },function(){
@@ -284,6 +311,7 @@
                 $(this).text('Start Recording');
                 $.ajax({url:'stopRecording', success: function(result){
                     refreshHttpList();
+                    statusUpdate("Recording stopped successfully");
                     console.log("Recording stopped successfully");
                 }});
             });
@@ -291,6 +319,7 @@
             //Clears recording
             $('#clearRecord').click(function(){
                 $.ajax({url:'clearRecording', success: function(result){
+                    statusUpdate("Recording cleared successfully");
                     console.log("Recording cleared successfully");
                     clearHTTPList();
                 }});
@@ -301,6 +330,7 @@
                   if (e.which == 13) {
                     $.ajax({url:'addPageBreakRec/'+$('#pageBreakerInput').val(), success: function(result){
                         console.log('Page Break '+$('#pageBreakerInput').val()+' created successfully');
+                        statusUpdate('Page Break '+$('#pageBreakerInput').val()+' created successfully');
                         refreshHttpList();
                     }});
                     return false;
@@ -343,8 +373,6 @@
                     calculateTotalResponseSize(result)+
                     '<div class="sub header">Total Size<br> Recieved</div></h3></div>'+
                     '</div>'
-
-                console.log(result);
 
                 return output;
             }

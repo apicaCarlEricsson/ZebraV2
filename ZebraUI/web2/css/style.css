@@ -26,7 +26,7 @@ button#serialParallelButton.ui.right.floated.toggle.button{
 .title {
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 .ui#contentTypeLabel.label {
@@ -38,11 +38,11 @@ button#serialParallelButton.ui.right.floated.toggle.button{
 #headerSegment{
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 #requestContentSegment #responseContentSegment{
     overflow: scroll;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
     word-wrap: break-all;
 }
 
@@ -128,4 +128,9 @@ body > div > div.ui.bottom.attached.active.tab.segment {
 
 #myLogo{
     padding-left: 0.5em;
+}
+
+#statusNotifier{
+  margin-left: 4em;
+  margin-bottom: 0;
 }
