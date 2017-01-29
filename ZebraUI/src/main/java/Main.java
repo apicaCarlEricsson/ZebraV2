@@ -39,11 +39,11 @@ public class Main {
         get("/savePrxDat", (req, res) -> {
             res.type("application/json");
             if (!worker.isProjectSaved()) {
-                return "{isSaved: false}";
+                return "{\"isSaved\": false}";
             }
             else{
                 worker.saveProject(worker.fetchPrxDat().getProjectName());
-                return "{isSaved: true}";
+                return "{\"isSaved\": true}";
             }
         });
 
@@ -56,11 +56,12 @@ public class Main {
         get("/clearSession", (req, res) -> {
             worker.clearPrxDat();
             res.type("application/json");
-            return "{isCleared:true}";
+            return "{\"isCleared\":true}";
         });
 
         get("/startRecording", (req, res) -> {
-            if (!worker.fetchPrxDat().getProjectName().equalsIgnoreCase("-1")){
+            String projectname = worker.fetchPrxDat().getProjectName();
+            if (!(projectname.equalsIgnoreCase("-1")||projectname.equalsIgnoreCase("tempNull"))){
                 dispatcher.loadSession(worker.fetchPrxDat().getProjectName());
                 return dispatcher.startRecording();
             }else {
@@ -77,8 +78,7 @@ public class Main {
                 worker.reloadPrxDat("tempNull", dispatcher.saveRecording());
                 worker.deleteTempDat();
             }
-            res.type("application/json");
-            return "{isSaved:true}";
+            return 200;
         });
 
         get("/clearRecording", (req, res) -> {
@@ -91,7 +91,23 @@ public class Main {
             return  dispatcher.getNumberOfItems();
         });
 
-        get("/addPageBreakRec/:name", (req, res) -> dispatcher.insertPageBreak(req.params(":name"),3,35));
+        get("/addPageBreakRec/:name", (req, res) -> {
+            String projectname = worker.fetchPrxDat().getProjectName();
+            dispatcher.insertPageBreak(req.params(":name"),3,35);
+            if (!(projectname.equalsIgnoreCase("-1")||projectname.equalsIgnoreCase("tempNull"))){
+                worker.reloadPrxDat(projectname, dispatcher.saveRecording(projectname));
+            }else{
+                worker.reloadPrxDat("tempNull", dispatcher.saveRecording());
+                worker.deleteTempDat();
+            }
+            return 200;
+        });
+
+        get("/generateLoadTest", (req, res) -> {
+            worker.generateLoadTest();
+            res.type("application/json");
+            return "{\"generated\": true}";
+        });
 
         ProxySniffer console = new ProxySniffer();
         console.main(new String[]{"-RESTAPIServer", "-ExecAgent"});

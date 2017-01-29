@@ -39,7 +39,7 @@
                         <div class="divider"></div>
                         <div class="header">Load Test</div>
                         <div class="item">Quick Test</div>
-                        <div class="item">Generate Load Test</div>
+                        <div id="generateLoadTest" class="item">Generate Load Test</div>
                     </div>
                 </div>
                 <div class="ui dropdown link item">
@@ -63,7 +63,7 @@
                 <div class="ui dropdown link item">
                     <i class="filter icon"></i>
                     <span class="text">Filter items</span>
-                    <div class="menu">      
+                    <div class="menu">
                         <div class="header">Sort by</div>
                         <div class="item">Host</div>
                         <div class="item">Content Type</div>
@@ -130,9 +130,9 @@
                         Save
                     </div>
                     </div>
-                    
+
             </div>
-           
+
            </div>
    </div>
    <div class="ui bottom attached tab segment" data-tab="run">
@@ -147,7 +147,7 @@
     <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
     <script src="/js/handlebars-v4.0.5.js" type="application/javascript"></script>
     <script>
-        $(document).ready(function(e) {  
+        $(document).ready(function(e) {
             $.ajax({url: "prxMetaData", success: function(result){
                 if ("proxyData" in result){
                     $('#metaDataView')
@@ -161,17 +161,17 @@
                     var $toggle  = $('.ui.toggle.button');
                     $toggle.state({text: {inactive : 'S',active   : 'P'}});
                     $("div[id^='urlSegments']").sortable({
-                        connectWith: "div#urlSegments.ui.segments", 
+                        connectWith: "div#urlSegments.ui.segments",
                         placeholder: "ui-state-highlight",
                         handle: ".title"
                     });
                     $("div[id^='pageBreakSegments']").sortable({
-                        connectWith: "div#pageBreakSegments.ui.segments", 
+                        connectWith: "div#pageBreakSegments.ui.segments",
                         placeholder: "ui-state-highlight",
                         handle: ".title"
                     });
                 }
-                
+
                 //Handles sidebar
                 $('.ui.sidebar')
                   .sidebar({
@@ -183,7 +183,7 @@
             }});
             $.fn.toggleClick = function(){
                 var methods = arguments, // store the passed arguments for future reference
-                    count = methods.length; // cache the number of methods 
+                    count = methods.length; // cache the number of methods
 
                 //use return this to maintain jQuery chainability
                 return this.each(function(i, item){
@@ -195,12 +195,12 @@
                     });
                 });
             }
-            
+
             //Trigger for saving script with specific name
             $("#saveAsScriptButton").click(function() {
                 $('.ui.sidebar').sidebar('show');
             });
-            
+
             //Save the script with a specific name
             $('#savePrxDatAs').click(function() {
                 var saveAsName = $('#savePrxDatInput').val();
@@ -212,47 +212,54 @@
                     $('.ui.sidebar').sidebar('hide');
                 }
             });
-            
+
+            //Generate the script
+            $("#generateLoadTest").click(function(){
+              $.ajax({url:"generateLoadTest", success: function(result){
+                console.log("Load test generated");
+              }});
+            });
+
             //Save the script
             $( "#saveScriptButton" ).click(function() {
             $.ajax({url: "savePrxDat", success: function(result){
-                  console.log(result);
-                  if(!result.isSaved){
-                      console.log('Hi');
-                      $('.ui.sidebar').sidebar('show');
-                  }else{
+                  if(result.isSaved){
                       console.log("Script saved");
+                  }else{
+                      $('.ui.sidebar').sidebar('show');
                   }
               }});
             });
-            
+
+            //Clears the entire list
+            function clearHTTPList () {
+              $('#metaDataView').empty();
+              $('#pageBreakSegments').empty();
+            }
+
             //Refreshes the entire list again - usable after a change has been made on the java side
             function refreshHttpList (){
                 $.ajax({url: "prxMetaData", success: function(result){
-                console.log("proxyData" in result);
-                if ("proxyData" in result){
-                    $('#metaDataView')
-                        .replaceWith
-                    (renderProjectMetaData(result));
-                    $('#pageBreakSegments')
-                        .html(renderList(result));
+                console.log(result.proxyData);
+                if (typeof result.proxyData !== 'undefined' && result.proxyData !== null){
+                    $('#metaDataView').html(renderProjectMetaData(result));
+                    $('#pageBreakSegments').html(renderList(result));
                     $('.ui.accordion').accordion({
                         duration: 500
                     });
                     var $toggle  = $('.ui.toggle.button');
                     $toggle.state({text: {inactive : 'S',active   : 'P'}});
                     $("div[id^='urlSegments']").sortable({
-                        connectWith: "div#urlSegments.ui.segments", 
+                        connectWith: "div#urlSegments.ui.segments",
                         placeholder: "ui-state-highlight",
                         handle: ".title"
                     });
                     $("div[id^='pageBreakSegments']").sortable({
-                        connectWith: "div#pageBreakSegments.ui.segments", 
+                        connectWith: "div#pageBreakSegments.ui.segments",
                         placeholder: "ui-state-highlight",
                         handle: ".title"
                     });
                 }
-                
                 //Handles sidebar
                 $('.ui.sidebar')
                   .sidebar({
@@ -262,8 +269,9 @@
                     closable: false,
                     transition: 'overlay'
                   });
+
                 }});}
-            
+
             //Handles toggling of the recorder
             $('#record').toggleClick(function(){
                 $(this).addClass('recording');
@@ -274,31 +282,31 @@
             },function(){
                 $(this).removeClass('recording');
                 $(this).text('Start Recording');
-                $.ajax({url: 'stopRecording', success: function(result){
-                    console.log("Recording stopped successfully");
+                $.ajax({url:'stopRecording', success: function(result){
                     refreshHttpList();
+                    console.log("Recording stopped successfully");
                 }});
             });
-            
+
             //Clears recording
             $('#clearRecord').click(function(){
                 $.ajax({url:'clearRecording', success: function(result){
                     console.log("Recording cleared successfully");
-                    refreshHttpList();
+                    clearHTTPList();
                 }});
             });
-            
+
             //Adds page breaks via the recorder
             $('#pageBreakerInput').keypress(function (e) {
                   if (e.which == 13) {
                     $.ajax({url:'addPageBreakRec/'+$('#pageBreakerInput').val(), success: function(result){
-                        refreshHttpList();
                         console.log('Page Break '+$('#pageBreakerInput').val()+' created successfully');
+                        refreshHttpList();
                     }});
                     return false;
                   }
                 });
-                        
+
             //Trigger for the recorder popup
             $('#recorderTrigger')
               .popup({
@@ -306,7 +314,7 @@
                 on    : 'click',
                 position : 'bottom right'
               });
-            
+
             $('#saveScriptButton')
               .popup({
                 popup : $('#saveToolbar'),
@@ -314,14 +322,14 @@
                 target: '#popupAnchor',
                 position : 'bottom left'
               });
-            
+
             $('.right.menu .item').tab();
             $('.dropdown').dropdown({action: 'select'});
-            
+
             //Render the metaData of the Project
             function renderProjectMetaData(result){
                 var output;
-                
+
                 output='<div class="ui grid">'+
                     '<div class="ten wide column"><h3 id="projectNameLabel" class="ui left aligned header">'+result.projectName+
                     '<div class="sub header">Script Name</div></h3></div>'+
@@ -335,33 +343,33 @@
                     calculateTotalResponseSize(result)+
                     '<div class="sub header">Total Size<br> Recieved</div></h3></div>'+
                     '</div>'
-                
+
                 console.log(result);
-                
+
                 return output;
             }
-            
+
             //Counts number of URL calls
             function countURLCalls(result){
                 var count=0;
-        
+
                 for(var i = 0; i<result.proxyData.length; ++i){
                     var record=result.proxyData[i];
                     if ("httpRequest" in record){
                         count=count+1;
                     }
-                    
+
                 }
-                
+
                 return count;
-            } 
-            
-            
+            }
+
+
             //Selects the correct label for content type
             function pickContentLabel (contentType){
                 var label;
                 if(typeof contentType === 'undefined'){
-                   label='<div id="contentTypeLabel" class="ui medium black label">N/A</div>'; 
+                   label='<div id="contentTypeLabel" class="ui medium black label">N/A</div>';
                 }else if (contentType.includes('TEXT/HTML')){
                     label='<div id="contentTypeLabel" class="ui medium blue label">HTML</div>';
                 }else if (contentType.includes('TEXT/CSS')){
@@ -377,18 +385,18 @@
                 }
                 return label;
             }
-            
+
             //Chooses the correct HTTP Response code
             function pickStatusCode(statusCode, statusMessage){
                 var statusLabel = '<b>'+statusCode+' '+statusMessage+'</b>';
                 return statusLabel;
             }
-            
+
             //Renders the list of URL calls and page breaks
             function renderList (data){
                 var html='';
                 var dataArray = data.proxyData;
-                
+
                 for (var i = 0; i < dataArray.length;++i){
                     var proxyRecord = dataArray[i];
 
@@ -415,19 +423,19 @@
                             renderURLCall(proxyRecord, i)+
                             '</div>'+
                             '</div></div>';
-                            
-                            
+
+
                     }
-                    
+
                 }
                 html += '</div></div></div></div>';
                 return html;
             }
-            
+
             //Calculates the totalResponseSize
             function calculateTotalResponseSize(result){
                 var contentSize=0;
-                
+
                 for (var i = 0; i<result.proxyData.length; ++i){
                     var record = result.proxyData[i];
                     if ("httpResponse" in record){
@@ -435,14 +443,14 @@
                             .headerContentLength;
                     }
                 }
-                
+
                 return calculatePageSize(contentSize);
             }
-            
+
             //Calculates the totalRequestSize
             function calculateTotalRequestSize(result){
                 var contentSize=0;
-                
+
                 for (var i = 0; i<result.proxyData.length; ++i){
                     var record = result.proxyData[i];
                     if ("httpRequest" in record){
@@ -450,17 +458,17 @@
                             .requestTransmitSize;
                     }
                 }
-                
+
                 return calculatePageSize(contentSize);
             }
-            
+
             //Calculates the response content size
             function calculatePageSize(headerContentLength){
-                
+
                 var sizeB=headerContentLength;
                 var sizeKB = headerContentLength/1024;
                 var sizeMB = sizeKB/1024;
-                
+
                 if (sizeKB>1024){
                     return Math.round(sizeMB * 10)/10 + ' MB';
                 }else if(sizeKB<1){
@@ -469,11 +477,11 @@
                     return Math.round(sizeKB * 10)/10 + ' KB';
                 }
             }
-            
+
             //Renders individual data for URL call
             function renderURLCall (urlCall, index){
                 var output='';
-                
+
                 output+='<div class="ui two column grid">'+
                     '<div class="row">'+
                     '<div class="column">'+
@@ -491,50 +499,50 @@
                     renderResponseHeaders(urlCall.httpResponse.header)+'</div></div>'+
                     '<div class="column">'+
                     renderResponseContent(urlCall.httpResponse)+
-                    '</div></div></div>';  
-                                
+                    '</div></div></div>';
+
                 return output;
             }
-            
+
             //Renders the individual response headers for a URL call
             function renderResponseHeaders(urlCall){
                 var output = '';
                 output += '<div id="headerSegment" class="ui attached segment">'+
                             '<b>'+urlCall[0]+'</b></div>';
-                
+
                 for (var i = 1; i<urlCall.length;++i){
                     if(typeof urlCall[i] !== 'undefined'){
                         var headerSplit = urlCall[i].split(": ");
                         output += '<div id="headerSegment" class="ui attached segment">'+
                             '<b>'+headerSplit[0]+': </b>'+headerSplit[1]+'</div>';
                     }
-                    
+
                 }
-                
+
                 return output;
             }
-            
+
             //Renders the individual request headers for a URL call
             function renderRequestHeaders(urlCall){
                 var output = '';
-                
+
                 for (var i = 0; i<urlCall.length;++i){
                     if(typeof urlCall[i] !== 'undefined'){
                         var headerSplit = urlCall[i].split(": ");
                         output += '<div id="headerSegment" class="ui attached segment">'+
                             '<b>'+headerSplit[0]+': </b>'+headerSplit[1]+'</div>';
                     }
-                    
+
                 }
-                
+
                 return output;
             }
             //Render the appropriate response according to the content type
             function renderContent(urlCall){
                 var output = '';
                 var contentType = urlCall.headerContentType
-                
-                
+
+
                 if(typeof(contentType) == 'undefined'){
                     output='';
                 }else if (contentType.includes("FONT-WOFF")){
@@ -542,15 +550,15 @@
                 }else if (contentType.includes('IMAGE')){
                     output='<img src="data:'+contentType.toLowerCase()+';base64,'+urlCall.content+'">';
                 }else{
-                    output=urlCall.content;       
+                    output=urlCall.content;
                 }
                 return output;
             }
-            
+
             //Renders the responseContent
             function renderResponseContent(urlCall){
                 var output='';
-                
+
                 if("content" in urlCall && urlCall.content.length>0){
                     output+='<div id="urlSegmentGroup" class="ui segments">'+
                     '<div id="requestContentHead" class="ui black inverted attached segment">'+
@@ -564,11 +572,11 @@
                 }
                 return output;
             }
-            
+
             //Renders the requestContent
             function renderRequestContent(urlCall){
                 var output='';
-                
+
                 if("content" in urlCall){
                     output+='<div class="column"><div id="urlSegmentGroup" class="ui segments">'+
                     '<div id="requestContentHead" class="ui yellow inverted attached segment">'+
@@ -582,12 +590,12 @@
                 }
                 return output;
             }
-            
+
             //Converts bit array to String
             function byteToString(array){
                 return String.fromCharCode.apply(null, array);
             }
-            
+
         });
     </script>
 </body>

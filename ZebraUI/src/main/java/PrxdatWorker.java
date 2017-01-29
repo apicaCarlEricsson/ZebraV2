@@ -6,6 +6,9 @@ import dfischer.webadmininterface.DirectoryNavigatorStoreContext;
 import dfischer.webadmininterface.DisplayListCache;
 
 
+import javax.tools.JavaCompiler;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -90,13 +93,31 @@ public class PrxdatWorker {
 
         ProxyAdminNetCmd admin = new ProxyAdminNetCmd("localhost",7998);
 
-        CreateLoadtestProgram generator = new CreateLoadtestProgram(new NextProxyConfig(), 2,prxdat.getComment()+".prxdat");
+        CreateLoadtestProgram generator = new CreateLoadtestProgram(new NextProxyConfig(), 2,prxdat.getProjectName()+".prxdat");
 
         generator.write(cache,admin,prxdat.getVarSourceHandler(),prxdat.getVarHandler(),prxdat.getTransactionHandler(),prxdat.getExternalResources()
-                ,new PrintWriter(new FileOutputStream(prxdat.getComment()+".java")));
+                ,new PrintWriter(new FileOutputStream(prxdat.getProjectName()+".java")));
 
-        
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        StandardJavaFileManager sfm = compiler.getStandardFileManager(null, null, null);
+        String superPath = System.getProperty("user.dir");
+        List<String> optionList = new ArrayList<String>();
+        optionList.add("-classpath");
+        optionList.add(System.getProperty("user.dir")+"/iaik_eccelerate.jar");
+        optionList.add(System.getProperty("user.dir")+"/iaik_eccelerate_ssl.jar");
+        optionList.add(System.getProperty("user.dir")+"/iaik_jce_full.jar");
+        optionList.add(System.getProperty("user.dir")+"/iaik_ssl.jar");
+        optionList.add(System.getProperty("user.dir")+"/iaikPkcs11Provider.jar");
+        optionList.add(System.getProperty("user.dir")+"/iaikPkcs11Wrapper.jar");
+        optionList.add(System.getProperty("user.dir")+"/prxsniff.jar");
 
+        File javaFile = new File(prxdat.getProjectName()+".java");
+
+        //compiler.getTask(null, sfm, null, optionList, null, sfm.getJavaFileObjects(new File[]{javaFile})).call();
+
+        //compiler.run(null, null, null, "-classpath "+System.getProperty("user.dir")+"/iaik_eccelerate.jar;"+System.getProperty("user.dir")+"/iaik_eccelerate_ssl.jar;"+System.getProperty("user.dir")+"/iaik_jce_full.jar;"+System.getProperty("user.dir")+"/iaik_ssl.jar;"+System.getProperty("user.dir")+"/iaikPkcs11Provider.jar;"+System.getProperty("user.dir")+"/iaikPkcs11Wrapper.jar;"+System.getProperty("user.dir")+"/prxsniff.jar "+System.getProperty("user.dir")+"/"+javaFile.getPath());
+
+        compiler.run(null, null, null, javaFile.getPath());
     }
 
 
