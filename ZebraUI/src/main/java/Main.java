@@ -17,6 +17,7 @@ public class Main {
         Dispatcher dispatcher = new Dispatcher();
 
         PrxdatWorker worker = new PrxdatWorker();
+        Runner run = new Runner();
 
         Gson gsonPrxDat = new GsonBuilder()
                 .setExclusionStrategies(new PrxExclStrat())
@@ -112,8 +113,17 @@ public class Main {
             return "{\"generated\": true}";
         });
 
+        get("/runTest/:scriptName", (req, res) -> {
+            try {
+                return run.runJob(req.params(":scriptName"), 1,1,1,60,9999,"tls11");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return 200;
+        });
+
         ProxySniffer console = new ProxySniffer();
-        console.main(new String[]{"-RESTAPIServer", "-ExecAgent"});
+        console.main(new String[]{"-RESTAPIServer", "-ExecAgent", "-runtimedatadir", System.getProperty("user.dir"),"-jobdir",System.getProperty("user.dir")});
 
     }
 

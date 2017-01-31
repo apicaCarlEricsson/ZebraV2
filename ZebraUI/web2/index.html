@@ -45,7 +45,7 @@
                         <div id="generateLoadTest" class="item">Generate Load Test</div>
                     </div>
                 </div>
-                <div class="ui dropdown link item">
+                <div id="menuViewDropdown" class="ui dropdown link item">
                     <i class="book icon"></i>
                     <span class="text">View</span>
                     <div class="menu">
@@ -63,7 +63,7 @@
                         <div class="item">Content Verification</div>
                     </div>
                 </div>
-                <div class="ui dropdown link item">
+                <div id="menuFilterDropdown" class="ui dropdown link item">
                     <i class="filter icon"></i>
                     <span class="text">Filter items</span>
                     <div class="menu">
@@ -139,8 +139,382 @@
            </div>
    </div>
    <div class="ui bottom attached tab segment" data-tab="run">
-            Run
+          <div id="loadtestsettingspane" class="ui segment">  
+                <div class="ui fluid accordion">
+                    <div class="active title"><h3>Settings</h3></div>  
+                        <div class="active content">
+                           <form class="ui form">
+                            <div class="six fields">
+                               <div class="field">
+                                <label>Number of users</label>
+                                <select class="ui fluid dropdown">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="32">32</option>
+                                    <option value="33">33</option>
+                                    <option value="34">34</option>
+                                    <option value="35">35</option>
+                                    <option value="36">36</option>
+                                    <option value="37">37</option>
+                                    <option value="38">38</option>
+                                    <option value="39">39</option>
+                                    <option value="40">40</option>
+                                    <option value="41">41</option>
+                                    <option value="42">42</option>
+                                    <option value="43">43</option>
+                                    <option value="44">44</option>
+                                    <option value="45">45</option>
+                                    <option value="46">46</option>
+                                    <option value="47">47</option>
+                                    <option value="48">48</option>
+                                    <option value="49">49</option>
+                                    <option value="50">50</option>
+                                    <option value="51">51</option>
+                                    <option value="52">52</option>
+                                    <option value="53">53</option>
+                                    <option value="54">54</option>
+                                    <option value="55">55</option>
+                                    <option value="56">56</option>
+                                    <option value="57">57</option>
+                                    <option value="58">58</option>
+                                    <option value="59">59</option>
+                                    <option value="60">60</option>
+                                    <option value="61">61</option>
+                                    <option value="62">62</option>
+                                    <option value="63">63</option>
+                                    <option value="64">64</option>
+                                    <option value="65">65</option>
+                                    <option value="66">66</option>
+                                    <option value="67">67</option>
+                                    <option value="68">68</option>
+                                    <option value="69">69</option>
+                                    <option value="70">70</option>
+                                    <option value="71">71</option>
+                                    <option value="72">72</option>
+                                    <option value="73">73</option>
+                                    <option value="74">74</option>
+                                    <option value="75">75</option>
+                                    <option value="76">76</option>
+                                    <option value="77">77</option>
+                                    <option value="78">78</option>
+                                    <option value="79">79</option>
+                                    <option value="80">80</option>
+                                    <option value="81">81</option>
+                                    <option value="82">82</option>
+                                    <option value="83">83</option>
+                                    <option value="84">84</option>
+                                    <option value="85">85</option>
+                                    <option value="86">86</option>
+                                    <option value="87">87</option>
+                                    <option value="88">88</option>
+                                    <option value="89">89</option>
+                                    <option value="90">90</option>
+                                    <option value="91">91</option>
+                                    <option value="92">92</option>
+                                    <option value="93">93</option>
+                                    <option value="94">94</option>
+                                    <option value="95">95</option>
+                                    <option value="96">96</option>
+                                    <option value="97">97</option>
+                                    <option value="98">98</option>
+                                    <option value="99">99</option>
+                                    <option value="100">100</option>
+                                </select>
+                                </div>
+                                <div class="field">
+                                <label>Load test duration</label>
+                                <select class="ui fluid dropdown">
+                                    <option value="1">1 second</option>
+                                    <option value="2">2 seconds</option>
+                                    <option value="3">3 seconds</option>
+                                    <option value="4">4 seconds</option>
+                                    <option value="5">5 seconds</option>
+                                    <option value="6">6 seconds</option>
+                                    <option value="7">7 seconds</option>
+                                    <option value="8">8 seconds</option>
+                                    <option value="9">9 seconds</option>
+                                    <option value="10">10 seconds</option>
+                                    <option value="20">20 seconds</option>
+                                    <option value="30">30 seconds</option>
+                                    <option value="40">40 seconds</option>
+                                    <option value="50">50 seconds</option>
+                                    <option value="60">1 minute</option>
+                                    <option value="120">2 minutes</option>
+                                    <option value="180">3 minutes</option>
+                                    <option value="240">4 minutes</option>
+                                    <option value="300">5 minutes</option>
+                                    <option value="360">6 minutes</option>
+                                    <option value="420">7 minutes</option>
+                                    <option value="480">8 minutes</option>
+                                    <option value="540">9 minutes</option>
+                                    <option value="600">10 minutes</option>
+                                    <option value="1200">20 minutes</option>
+                                    <option value="1800">30 minutes</option>
+                                    <option value="2400">40 minutes</option>
+                                    <option value="3000">50 minutes</option>
+                                    <option value="3600">1 hour</option>
+                                    <option value="7200">2 hours</option>
+                                    <option value="10800">3 hours</option>
+                                    <option value="14400">4 hours</option>
+                                </select>
+                                  </div>
+                              <div class="field">
+                                <label>Max iterations per user</label>
+                                <select name="" id="" class="ui fluid dropdown">
+                                    <option value="0">Unlimited</option>
+                                    <option value="1">1 iteration</option>
+                                    <option value="2">2 iterations</option>
+                                    <option value="3">3 iterations</option>
+                                    <option value="4">4 iterations</option>
+                                    <option value="5">5 iterations</option>
+                                    <option value="6">6 iterations</option>
+                                    <option value="7">7 iterations</option>
+                                    <option value="8">8 iterations</option>
+                                    <option value="9">9 iterations</option>
+                                    <option value="10">10 iterations</option>
+                                    <option value="11">11 iterations</option>
+                                    <option value="12">12 iterations</option>
+                                    <option value="13">13 iterations</option>
+                                    <option value="14">14 iterations</option>
+                                    <option value="15">15 iterations</option>
+                                    <option value="16">16 iterations</option>
+                                    <option value="17">17 iterations</option>
+                                    <option value="18">18 iterations</option>
+                                    <option value="19">19 iterations</option>
+                                    <option value="20">20 iterations</option>
+                                    <option value="21">21 iterations</option>
+                                    <option value="22">22 iterations</option>
+                                    <option value="23">23 iterations</option>
+                                    <option value="24">24 iterations</option>
+                                    <option value="25">25 iterations</option>
+                                    <option value="26">26 iterations</option>
+                                    <option value="27">27 iterations</option>
+                                    <option value="28">28 iterations</option>
+                                    <option value="29">29 iterations</option>
+                                    <option value="30">30 iterations</option>
+                                    <option value="31">31 iterations</option>
+                                    <option value="32">32 iterations</option>
+                                    <option value="33">33 iterations</option>
+                                    <option value="34">34 iterations</option>
+                                    <option value="35">35 iterations</option>
+                                    <option value="36">36 iterations</option>
+                                    <option value="37">37 iterations</option>
+                                    <option value="38">38 iterations</option>
+                                    <option value="39">39 iterations</option>
+                                    <option value="40">40 iterations</option>
+                                    <option value="41">41 iterations</option>
+                                    <option value="42">42 iterations</option>
+                                    <option value="43">43 iterations</option>
+                                    <option value="44">44 iterations</option>
+                                    <option value="45">45 iterations</option>
+                                    <option value="46">46 iterations</option>
+                                    <option value="47">47 iterations</option>
+                                    <option value="48">48 iterations</option>
+                                    <option value="49">49 iterations</option>
+                                    <option value="50">50 iterations</option>
+                                    <option value="51">51 iterations</option>
+                                    <option value="52">52 iterations</option>
+                                    <option value="53">53 iterations</option>
+                                    <option value="54">54 iterations</option>
+                                    <option value="55">55 iterations</option>
+                                    <option value="56">56 iterations</option>
+                                    <option value="57">57 iterations</option>
+                                    <option value="58">58 iterations</option>
+                                    <option value="59">59 iterations</option>
+                                    <option value="60">60 iterations</option>
+                                    <option value="61">61 iterations</option>
+                                    <option value="62">62 iterations</option>
+                                    <option value="63">63 iterations</option>
+                                    <option value="64">64 iterations</option>
+                                    <option value="65">65 iterations</option>
+                                    <option value="66">66 iterations</option>
+                                    <option value="67">67 iterations</option>
+                                    <option value="68">68 iterations</option>
+                                    <option value="69">69 iterations</option>
+                                    <option value="70">70 iterations</option>
+                                    <option value="71">71 iterations</option>
+                                    <option value="72">72 iterations</option>
+                                    <option value="73">73 iterations</option>
+                                    <option value="74">74 iterations</option>
+                                    <option value="75">75 iterations</option>
+                                    <option value="76">76 iterations</option>
+                                    <option value="77">77 iterations</option>
+                                    <option value="78">78 iterations</option>
+                                    <option value="79">79 iterations</option>
+                                    <option value="80">80 iterations</option>
+                                    <option value="81">81 iterations</option>
+                                    <option value="82">82 iterations</option>
+                                    <option value="83">83 iterations</option>
+                                    <option value="84">84 iterations</option>
+                                    <option value="85">85 iterations</option>
+                                    <option value="86">86 iterations</option>
+                                    <option value="87">87 iterations</option>
+                                    <option value="88">88 iterations</option>
+                                    <option value="89">89 iterations</option>
+                                    <option value="90">90 iterations</option>
+                                    <option value="91">91 iterations</option>
+                                    <option value="92">92 iterations</option>
+                                    <option value="93">93 iterations</option>
+                                    <option value="94">94 iterations</option>
+                                    <option value="95">95 iterations</option>
+                                    <option value="96">96 iterations</option>
+                                    <option value="97">97 iterations</option>
+                                    <option value="98">98 iterations</option>
+                                    <option value="99">99 iterations</option>
+                                    <option value="100">100 iterations</option>
+                                    <option value="101">101 iterations</option>
+                                    <option value="102">102 iterations</option>
+                                    <option value="103">103 iterations</option>
+                                    <option value="104">104 iterations</option>
+                                    <option value="105">105 iterations</option>
+                                    <option value="106">106 iterations</option>
+                                    <option value="107">107 iterations</option>
+                                    <option value="108">108 iterations</option>
+                                    <option value="109">109 iterations</option>
+                                    <option value="110">110 iterations</option>
+                                    <option value="111">111 iterations</option>
+                                    <option value="112">112 iterations</option>
+                                    <option value="113">113 iterations</option>
+                                    <option value="114">114 iterations</option>
+                                    <option value="115">115 iterations</option>
+                                    <option value="116">116 iterations</option>
+                                    <option value="117">117 iterations</option>
+                                    <option value="118">118 iterations</option>
+                                    <option value="119">119 iterations</option>
+                                    <option value="120">120 iterations</option>
+                                    <option value="121">121 iterations</option>
+                                    <option value="122">122 iterations</option>
+                                    <option value="123">123 iterations</option>
+                                    <option value="124">124 iterations</option>
+                                    <option value="125">125 iterations</option>
+                                    <option value="126">126 iterations</option>
+                                    <option value="127">127 iterations</option>
+                                    <option value="128">128 iterations</option>
+                                    <option value="129">129 iterations</option>
+                                    <option value="130">130 iterations</option>
+                                    <option value="131">131 iterations</option>
+                                    <option value="132">132 iterations</option>
+                                    <option value="133">133 iterations</option>
+                                    <option value="134">134 iterations</option>
+                                    <option value="135">135 iterations</option>
+                                    <option value="136">136 iterations</option>
+                                    <option value="137">137 iterations</option>
+                                    <option value="138">138 iterations</option>
+                                    <option value="139">139 iterations</option>
+                                    <option value="140">140 iterations</option>
+                                    <option value="141">141 iterations</option>
+                                    <option value="142">142 iterations</option>
+                                    <option value="143">143 iterations</option>
+                                    <option value="144">144 iterations</option>
+                                    <option value="145">145 iterations</option>
+                                    <option value="146">146 iterations</option>
+                                    <option value="147">147 iterations</option>
+                                    <option value="148">148 iterations</option>
+                                    <option value="149">149 iterations</option>
+                                    <option value="150">150 iterations</option>
+                                    <option value="151">151 iterations</option>
+                                    <option value="152">152 iterations</option>
+                                    <option value="153">153 iterations</option>
+                                    <option value="154">154 iterations</option>
+                                    <option value="155">155 iterations</option>
+                                    <option value="156">156 iterations</option>
+                                    <option value="157">157 iterations</option>
+                                    <option value="158">158 iterations</option>
+                                    <option value="159">159 iterations</option>
+                                    <option value="160">160 iterations</option>
+                                    <option value="161">161 iterations</option>
+                                    <option value="162">162 iterations</option>
+                                    <option value="163">163 iterations</option>
+                                    <option value="164">164 iterations</option>
+                                    <option value="165">165 iterations</option>
+                                    <option value="166">166 iterations</option>
+                                    <option value="167">167 iterations</option>
+                                    <option value="168">168 iterations</option>
+                                    <option value="169">169 iterations</option>
+                                    <option value="170">170 iterations</option>
+                                    <option value="171">171 iterations</option>
+                                    <option value="172">172 iterations</option>
+                                    <option value="173">173 iterations</option>
+                                    <option value="174">174 iterations</option>
+                                    <option value="175">175 iterations</option>
+                                    <option value="176">176 iterations</option>
+                                    <option value="177">177 iterations</option>
+                                    <option value="178">178 iterations</option>
+                                    <option value="179">179 iterations</option>
+                                    <option value="180">180 iterations</option>
+                                    <option value="181">181 iterations</option>
+                                    <option value="182">182 iterations</option>
+                                    <option value="183">183 iterations</option>
+                                    <option value="184">184 iterations</option>
+                                    <option value="185">185 iterations</option>
+                                    <option value="186">186 iterations</option>
+                                    <option value="187">187 iterations</option>
+                                    <option value="188">188 iterations</option>
+                                    <option value="189">189 iterations</option>
+                                    <option value="190">190 iterations</option>
+                                    <option value="191">191 iterations</option>
+                                    <option value="192">192 iterations</option>
+                                    <option value="193">193 iterations</option>
+                                    <option value="194">194 iterations</option>
+                                    <option value="195">195 iterations</option>
+                                    <option value="196">196 iterations</option>
+                                    <option value="197">197 iterations</option>
+                                    <option value="198">198 iterations</option>
+                                    <option value="199">199 iterations</option>
+                                    <option value="200">200 iterations</option>
+                                </select>
+                                
+                              </div>
+                              <div class="field">
+                                <label>Additional Options</label>
+                                <input type="text" name="addOptions" placeholder="Additional options...">
+                              </div>
+                              <div class="field">
+                                <label>Current script</label>
+                                <input placeholder="No Script Loaded" readonly="" type="text">
+                              </div>
+                              </div>
+                              <button class="ui olive button">Run</button>
+                                </form>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+                      
+                      
+                      
+                      
         </div>
+                        
         <div class="ui bottom attached tab segment" data-tab="analyze">
             Analyze
         </div>
@@ -354,7 +728,11 @@
               });
 
             $('.right.menu .item').tab();
-            $('.dropdown').dropdown({action: 'select'});
+            $('#menuFileDropdown').dropdown({action: 'select'});
+            $('#menuViewDropdown').dropdown({action: 'select'});
+            $('#menuFilterDropdown').dropdown({action: 'select'});
+            $('select.dropdown').dropdown();
+            
 
             //Render the metaData of the Project
             function renderProjectMetaData(result){
