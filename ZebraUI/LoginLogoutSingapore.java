@@ -5,7 +5,7 @@
 // -----------------------------------------
 //
 // Source: LoginLogoutSingapore.java
-// Date  : 30 Jan 2017 08:17:27 ECT
+// Date  : 01 Feb 2017 19:26:17 ECT
 // Author: Apica ZebraTester V5.4-I / automatically generated
 //
 // Procedure Copyright by Ingenieurbuero David Fischer AG  |  A Company of the Apica Group
@@ -197,10 +197,10 @@ public class LoginLogoutSingapore extends HttpLoadTest implements Runnable, Thre
 	private String vSAMLResponse_1 = null;               // var declaration from web admin var handler: scope = per loop
 	private String rider12 = null;                       // var declaration from web admin var handler: scope = per loop
 	private String rider11 = null;                       // var declaration from web admin var handler: scope = per loop
-	private String vWctx = null;                         // var declaration from web admin var handler: scope = per loop
 	private String rider10 = null;                       // var declaration from web admin var handler: scope = per loop
-	private String vVIEWSTATE = null;                    // var declaration from web admin var handler: scope = per loop
+	private String vWctx = null;                         // var declaration from web admin var handler: scope = per loop
 	private String vEVENTVALIDATION = null;              // var declaration from web admin var handler: scope = per loop
+	private String vVIEWSTATE = null;                    // var declaration from web admin var handler: scope = per loop
 	private String vWa_1 = null;                         // var declaration from web admin var handler: scope = per loop
 	private String vWresult = null;                      // var declaration from web admin var handler: scope = per loop
 	private String vWa = null;                           // var declaration from web admin var handler: scope = per loop
@@ -320,10 +320,10 @@ public class LoginLogoutSingapore extends HttpLoadTest implements Runnable, Thre
 		vSAMLResponse_1 = null;
 		rider12 = null;
 		rider11 = null;
-		vWctx = null;
 		rider10 = null;
-		vVIEWSTATE = null;
+		vWctx = null;
 		vEVENTVALIDATION = null;
+		vVIEWSTATE = null;
 		vWa_1 = null;
 		vWresult = null;
 		vWa = null;
@@ -347,10 +347,10 @@ public class LoginLogoutSingapore extends HttpLoadTest implements Runnable, Thre
 		log("<<< vSAMLResponse_1 = " + vSAMLResponse_1);
 		log("<<< rider12 = " + rider12);
 		log("<<< rider11 = " + rider11);
-		log("<<< vWctx = " + vWctx);
 		log("<<< rider10 = " + rider10);
-		log("<<< vVIEWSTATE = " + vVIEWSTATE);
+		log("<<< vWctx = " + vWctx);
 		log("<<< vEVENTVALIDATION = " + vEVENTVALIDATION);
+		log("<<< vVIEWSTATE = " + vVIEWSTATE);
 		log("<<< vWa_1 = " + vWa_1);
 		log("<<< vWresult = " + vWresult);
 		log("<<< vWa = " + vWa);
@@ -1146,24 +1146,6 @@ public class LoginLogoutSingapore extends HttpLoadTest implements Runnable, Thre
 		}
 		try
 		{
-			// extract var 'vVIEWSTATE'
-			vVIEWSTATE = htmlContentParser.getFormTable().getForm(0).getFormItemValue("__VIEWSTATE");		// recorded value = /wEPDwUKLTM5NjExMzYwNw9kFgICAw9kFiQCAQ8PFgIeBFRleHQFBkxvZyBpbmRkAgMPDxYCHwAF5AJSZXR1cm5Vcmw9JTJmdmlzc3RzJTJmc3RzLmFzcHglM2Z3YSUzZHdzaWduaW4xLjAlMjZ3dHJlYWxtJTNkaHR0cCUyNTNhJTI1MmYlMjUyZnN0c2ludC5hYmIuY29tJTI1MmZhZGZzJTI1MmZzZXJ2aWNlcyUyNTJmdHJ1c3QlMjZ3Y3R4JTNkZjI5ZWI2YTMtNWNkZi00NzljLWE3ZTktZWQ2ZTYwNTA4NDY1JTI2d2N0JTNkMjAxNi0xMi0yMHQxMCUyNTNhMTYlMjUzYTAweiZ3YT13c2lnbmluMS4wJnd0cmVhbG09aHR0cCUzYSUyZiUyZnN0c2ludC5hYmIuY29tJTJmYWRmcyUyZnNlcnZpY2VzJTJmdHJ1c3Qmd2N0eD1mMjllYjZhMy01Y2RmLTQ3OWMtYTdlOS1lZDZlNjA1MDg0NjUmd2N0PTIwMTYtMTItMjB0MTAlM2ExNiUzYTAwemRkAgUPDxYCHwAFxwElMmZ2aXNzdHMlMmZzdHMuYXNweCUzZndhJTNkd3NpZ25pbjEuMCUyNnd0cmVhbG0lM2RodHRwJTI1M2ElMjUyZiUyNTJmc3RzaW50LmFiYi5jb20lMjUyZmFkZnMlMjUyZnNlcnZpY2VzJTI1MmZ0cnVzdCUyNndjdHglM2RmMjllYjZhMy01Y2RmLTQ3OWMtYTdlOS1lZDZlNjA1MDg0NjUlMjZ3Y3QlM2QyMDE2LTEyLTIwdDEwJTI1M2ExNiUyNTNhMDB6ZGQCCQ8PFgIfAAUORS1tYWlsIGFkZHJlc3NkZAIND2QWAmYPDxYCHwAFHVlvdSBtdXN0IGVudGVyIGUtbWFpbCBhZGRyZXNzZGQCDw9kFgJmDw8WAh8ABSVZb3UgbXVzdCBwcm92aWRlIHZhbGlkIGVtYWlsIGFkZHJlc3MuZGQCEQ8PFgIfAAUIUGFzc3dvcmRkZAIVD2QWAmYPDxYCHwAFF1lvdSBtdXN0IGVudGVyIHBhc3N3b3JkZGQCFw8PFgIfAAUGdW5tYXNrZGQCGQ8PFgIfAAUFTG9naW5kZAIbDxYCHgRocmVmZGQCHQ8WAh8BBTNodHRwczovL3d3dy5hYmIuY29tL1VzZXIvUmVxdWVzdEZvcmdvdFBhc3N3b3JkLmFzcHgWAgIBDw8WAh8ABRVGb3Jnb3QgeW91ciBwYXNzd29yZD8WAh4LcmVzb3VyY2VLZXkFF1VJLkxvZ2luLkZvcmdvdFBhc3N3b3JkZAIfDw8WAh8ABRBOZWVkIGFuIGFjY291bnQ/ZGQCIQ8WAh8BBS5odHRwczovL3d3dy5hYmIuY29tL1VzZXIvUmVnaXN0cmF0aW9uUGFnZS5hc3B4FgICAQ8PFgIfAAUIU2lnbiB1cCFkZAIjDw8WAh8ABR5Qcm92aWRlciBJbmZvcm1hdGlvbi9JbXByZXNzdW1kZAIlDw8WAh8ABRpDb29raWVzIGFuZCBwcml2YWN5IHBvbGljeWRkAicPDxYCHwAFElByZWZlcnJlZCBsYW5ndWFnZWRkAikPEGQPFiNmAgECAgIDAgQCBQIGAgcCCAIJAgoCCwIMAg0CDgIPAhACEQISAhMCFAIVAhYCFwIYAhkCGgIbAhwCHQIeAh8CIAIhAiIWIxAFBkFyYWJpYwUEMTAyNWcQBQlCdWxnYXJpYW4FBDEwMjZnEAUFQ3plY2gFBDEwMjlnEAUGRGFuaXNoBQQxMDMwZxAFBkdlcm1hbgUEMTAzMWcQBQVHcmVlawUEMTAzMmcQBQdFbmdsaXNoBQQxMDMzZxAFB1NwYW5pc2gFBDEwMzRnEAUHRmlubmlzaAUEMTAzNWcQBQZGcmVuY2gFBDEwMzZnEAUGSGVicmV3BQQxMDM3ZxAFCUh1bmdhcmlhbgUEMTAzOGcQBQdJdGFsaWFuBQQxMDQwZxAFCEphcGFuZXNlBQQxMDQxZxAFBktvcmVhbgUEMTA0MmcQBQVEdXRjaAUEMTA0M2cQBQlOb3J3ZWdpYW4FBDEwNDRnEAUGUG9saXNoBQQxMDQ1ZxAFCFJvbWFuaWFuBQQxMDQ4ZxAFB1J1c3NpYW4FBDEwNDlnEAUIQ3JvYXRpYW4FBDEwNTBnEAUGU2xvdmFrBQQxMDUxZxAFB1N3ZWRpc2gFBDEwNTNnEAUEVGhhaQUEMTA1NGcQBQdUdXJraXNoBQQxMDU1ZxAFCVVrcmFpbmlhbgUEMTA1OGcQBQlTbG92ZW5pYW4FBDEwNjBnEAUIRXN0b25pYW4FBDEwNjFnEAUHTGF0dmlhbgUEMTA2MmcQBQpMaXRodWFuaWFuBQQxMDYzZxAFB1BlcnNpYW4FBDEwNjVnEAUKVmlldG5hbWVzZQUEMTA2NmcQBRJDaGluZXNlIFNpbXBsaWZpZWQFBDIwNTJnEAUKUG9ydHVndWVzZQUEMjA3MGcQBRNDaGluZXNlIFRyYWRpdGlvbmFsBQUzMTc0OGcWAQIGZGSBXq0wc/Z4XqeS/iQm9BjKNYJMHI7TQ/j2L8eDa9Cz/A==
-			log("<<< vVIEWSTATE = " + vVIEWSTATE);
-		}
-		catch (Exception e) { vVIEWSTATE = null; log(e); }
-		if (vVIEWSTATE == null)
-		{
-			// failure - dump wrong response content and abort current outer loop - after that start next loop
-			String errorText = "*** error: unable to extract var 'vVIEWSTATE' from html form parameter";
-			log(errorText);
-			terminateFailedUser(testURL);		// set the user to be terminated at end of loop ? - only performed if the URL call has marked before to support that !
-			threadStep = performanceData.setFailed(threadStep, HttpTestURL.STATUS_TYPE_USER_SPECIFIC_TEST_FAILED, errorText, testURL, this);
-		
-			endOfExecuteLoop(false, testURL, threadStep, loopPluginContext);
-			return false;
-		}
-		try
-		{
 			// extract var 'vEVENTVALIDATION'
 			vEVENTVALIDATION = htmlContentParser.getFormTable().getForm(0).getFormItemValue("__EVENTVALIDATION");		// recorded value = /wEdACm3CLaiLBYH3+RaPY0kTkxBVK7BrRAtEiqu9nGFEI+jB3Y2+Mc6SrnAqio3oCKbxYY85pbWlDO2hADfoPXD/5tdd9DWhICYo6sOpkGpIzIKzK6kzfFnmEDmUoYjmX3HfXt0ArrMpJHqMpvN7H76vx6ULpWbmVO3wqowOSESFccQH8AS0HPYrMvqXZc0LkYvqE8VmvASjMcfDWd4wOnR6K0l+vphdUnkKGrDlX05SiKOd1G0ZrUo0X/vCwq5tnDMl9jxaugKz1XfkUBebVE0Hx/INVDThD20RQkmH6G2uEhtQQSwCCJ8GTxX66Lvudb330amIxmiiGYZK+7nmMfVyyWhGkKju3NiCmYzB1lDfuOLuL8EY+ujUQKrELQq24t48OobwfTn0mwzGyiT4VeMtwFvgLeOINUfNWgB63hd7OG4hoZ3R6M5vQAiquJ7aZyXzGp3nQSyhH/s83YLFUjVW77S6EyHCQ9Y1dYDyAwb+nUgYxHjtnWfJkF9Tb9RD/HffSAkvJfAeSMhO0haucUb/ShOZ+n6h59hztKTqIqhwM8Tmso8t68eAwSmtST2g0Le4G2+CtaPCcYqdt6NbsGk5wvu46lXf9YpaQA871VY8A78QS+Ln9IwrnNKFy6dAYnf35hAC+kssw9QbB4cTffeqeQodn8N1icK0TqOTkyjig1ZyjinKHG0JiIhDGpllGVrWiDVQ5F2XlQ6mDmoIwfrzJCHT3ycP13a6ngwGCmbLWwWyzy4cVdKRXV2qB/NKmtUWZFpIOsTlzX+dbyZSP+xlW9YE406D2ZfT9z/BLKq+RAZgW+Sek9X7oJDxGqpClP4RRlw72pE+jSQQo8G/LwmKUz8ozoUWGaxZlwLC8due01Cq+75Vd0bh+lZ771JDs9PbExpIuQr1Al3fAQheNLJtMdI
 			log("<<< vEVENTVALIDATION = " + vEVENTVALIDATION);
@@ -1173,6 +1155,24 @@ public class LoginLogoutSingapore extends HttpLoadTest implements Runnable, Thre
 		{
 			// failure - dump wrong response content and abort current outer loop - after that start next loop
 			String errorText = "*** error: unable to extract var 'vEVENTVALIDATION' from html form parameter";
+			log(errorText);
+			terminateFailedUser(testURL);		// set the user to be terminated at end of loop ? - only performed if the URL call has marked before to support that !
+			threadStep = performanceData.setFailed(threadStep, HttpTestURL.STATUS_TYPE_USER_SPECIFIC_TEST_FAILED, errorText, testURL, this);
+		
+			endOfExecuteLoop(false, testURL, threadStep, loopPluginContext);
+			return false;
+		}
+		try
+		{
+			// extract var 'vVIEWSTATE'
+			vVIEWSTATE = htmlContentParser.getFormTable().getForm(0).getFormItemValue("__VIEWSTATE");		// recorded value = /wEPDwUKLTM5NjExMzYwNw9kFgICAw9kFiQCAQ8PFgIeBFRleHQFBkxvZyBpbmRkAgMPDxYCHwAF5AJSZXR1cm5Vcmw9JTJmdmlzc3RzJTJmc3RzLmFzcHglM2Z3YSUzZHdzaWduaW4xLjAlMjZ3dHJlYWxtJTNkaHR0cCUyNTNhJTI1MmYlMjUyZnN0c2ludC5hYmIuY29tJTI1MmZhZGZzJTI1MmZzZXJ2aWNlcyUyNTJmdHJ1c3QlMjZ3Y3R4JTNkZjI5ZWI2YTMtNWNkZi00NzljLWE3ZTktZWQ2ZTYwNTA4NDY1JTI2d2N0JTNkMjAxNi0xMi0yMHQxMCUyNTNhMTYlMjUzYTAweiZ3YT13c2lnbmluMS4wJnd0cmVhbG09aHR0cCUzYSUyZiUyZnN0c2ludC5hYmIuY29tJTJmYWRmcyUyZnNlcnZpY2VzJTJmdHJ1c3Qmd2N0eD1mMjllYjZhMy01Y2RmLTQ3OWMtYTdlOS1lZDZlNjA1MDg0NjUmd2N0PTIwMTYtMTItMjB0MTAlM2ExNiUzYTAwemRkAgUPDxYCHwAFxwElMmZ2aXNzdHMlMmZzdHMuYXNweCUzZndhJTNkd3NpZ25pbjEuMCUyNnd0cmVhbG0lM2RodHRwJTI1M2ElMjUyZiUyNTJmc3RzaW50LmFiYi5jb20lMjUyZmFkZnMlMjUyZnNlcnZpY2VzJTI1MmZ0cnVzdCUyNndjdHglM2RmMjllYjZhMy01Y2RmLTQ3OWMtYTdlOS1lZDZlNjA1MDg0NjUlMjZ3Y3QlM2QyMDE2LTEyLTIwdDEwJTI1M2ExNiUyNTNhMDB6ZGQCCQ8PFgIfAAUORS1tYWlsIGFkZHJlc3NkZAIND2QWAmYPDxYCHwAFHVlvdSBtdXN0IGVudGVyIGUtbWFpbCBhZGRyZXNzZGQCDw9kFgJmDw8WAh8ABSVZb3UgbXVzdCBwcm92aWRlIHZhbGlkIGVtYWlsIGFkZHJlc3MuZGQCEQ8PFgIfAAUIUGFzc3dvcmRkZAIVD2QWAmYPDxYCHwAFF1lvdSBtdXN0IGVudGVyIHBhc3N3b3JkZGQCFw8PFgIfAAUGdW5tYXNrZGQCGQ8PFgIfAAUFTG9naW5kZAIbDxYCHgRocmVmZGQCHQ8WAh8BBTNodHRwczovL3d3dy5hYmIuY29tL1VzZXIvUmVxdWVzdEZvcmdvdFBhc3N3b3JkLmFzcHgWAgIBDw8WAh8ABRVGb3Jnb3QgeW91ciBwYXNzd29yZD8WAh4LcmVzb3VyY2VLZXkFF1VJLkxvZ2luLkZvcmdvdFBhc3N3b3JkZAIfDw8WAh8ABRBOZWVkIGFuIGFjY291bnQ/ZGQCIQ8WAh8BBS5odHRwczovL3d3dy5hYmIuY29tL1VzZXIvUmVnaXN0cmF0aW9uUGFnZS5hc3B4FgICAQ8PFgIfAAUIU2lnbiB1cCFkZAIjDw8WAh8ABR5Qcm92aWRlciBJbmZvcm1hdGlvbi9JbXByZXNzdW1kZAIlDw8WAh8ABRpDb29raWVzIGFuZCBwcml2YWN5IHBvbGljeWRkAicPDxYCHwAFElByZWZlcnJlZCBsYW5ndWFnZWRkAikPEGQPFiNmAgECAgIDAgQCBQIGAgcCCAIJAgoCCwIMAg0CDgIPAhACEQISAhMCFAIVAhYCFwIYAhkCGgIbAhwCHQIeAh8CIAIhAiIWIxAFBkFyYWJpYwUEMTAyNWcQBQlCdWxnYXJpYW4FBDEwMjZnEAUFQ3plY2gFBDEwMjlnEAUGRGFuaXNoBQQxMDMwZxAFBkdlcm1hbgUEMTAzMWcQBQVHcmVlawUEMTAzMmcQBQdFbmdsaXNoBQQxMDMzZxAFB1NwYW5pc2gFBDEwMzRnEAUHRmlubmlzaAUEMTAzNWcQBQZGcmVuY2gFBDEwMzZnEAUGSGVicmV3BQQxMDM3ZxAFCUh1bmdhcmlhbgUEMTAzOGcQBQdJdGFsaWFuBQQxMDQwZxAFCEphcGFuZXNlBQQxMDQxZxAFBktvcmVhbgUEMTA0MmcQBQVEdXRjaAUEMTA0M2cQBQlOb3J3ZWdpYW4FBDEwNDRnEAUGUG9saXNoBQQxMDQ1ZxAFCFJvbWFuaWFuBQQxMDQ4ZxAFB1J1c3NpYW4FBDEwNDlnEAUIQ3JvYXRpYW4FBDEwNTBnEAUGU2xvdmFrBQQxMDUxZxAFB1N3ZWRpc2gFBDEwNTNnEAUEVGhhaQUEMTA1NGcQBQdUdXJraXNoBQQxMDU1ZxAFCVVrcmFpbmlhbgUEMTA1OGcQBQlTbG92ZW5pYW4FBDEwNjBnEAUIRXN0b25pYW4FBDEwNjFnEAUHTGF0dmlhbgUEMTA2MmcQBQpMaXRodWFuaWFuBQQxMDYzZxAFB1BlcnNpYW4FBDEwNjVnEAUKVmlldG5hbWVzZQUEMTA2NmcQBRJDaGluZXNlIFNpbXBsaWZpZWQFBDIwNTJnEAUKUG9ydHVndWVzZQUEMjA3MGcQBRNDaGluZXNlIFRyYWRpdGlvbmFsBQUzMTc0OGcWAQIGZGSBXq0wc/Z4XqeS/iQm9BjKNYJMHI7TQ/j2L8eDa9Cz/A==
+			log("<<< vVIEWSTATE = " + vVIEWSTATE);
+		}
+		catch (Exception e) { vVIEWSTATE = null; log(e); }
+		if (vVIEWSTATE == null)
+		{
+			// failure - dump wrong response content and abort current outer loop - after that start next loop
+			String errorText = "*** error: unable to extract var 'vVIEWSTATE' from html form parameter";
 			log(errorText);
 			terminateFailedUser(testURL);		// set the user to be terminated at end of loop ? - only performed if the URL call has marked before to support that !
 			threadStep = performanceData.setFailed(threadStep, HttpTestURL.STATUS_TYPE_USER_SPECIFIC_TEST_FAILED, errorText, testURL, this);

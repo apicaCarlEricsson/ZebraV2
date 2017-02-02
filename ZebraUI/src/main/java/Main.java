@@ -123,7 +123,7 @@ public class Main {
         });
 
         ProxySniffer console = new ProxySniffer();
-        console.main(new String[]{"-RESTAPIServer", "-ExecAgent", "-runtimedatadir", System.getProperty("user.dir"),"-jobdir",System.getProperty("user.dir")});
+        console.main(new String[]{"-RESTAPIServer","-webadmin", "-ExecAgent", "-runtimedatadir", System.getProperty("user.dir"),"-jobdir",System.getProperty("user.dir")});
 
     }
 

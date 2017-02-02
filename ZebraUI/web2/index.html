@@ -513,7 +513,7 @@
                       
                       
                       
-        </div>
+        
                         
         <div class="ui bottom attached tab segment" data-tab="analyze">
             Analyze
@@ -524,6 +524,7 @@
     <script src="/semantic/dist/semantic.min.js" type="application/javascript"></script>
     <script src="/js/finder.min.js" type="application/javascript"></script>
     <script src="/js/jquery.finder.js" type="application/javascript"></script>
+    <script src="/js/keymage.min.js" type="application/javascript"></script>
     <script>
         $(document).ready(function(e) {
             $.ajax({url: "prxMetaData", success: function(result){
@@ -556,6 +557,29 @@
                     transition: 'overlay'
                   });
             }});
+            var keymap = {};
+            //Method for preventing default browser behavior for command and control + S
+            $(document).keydown(function(event){
+                keymap[event.keyCode] = event.type == 'keydown';
+                if (keymap[83] && (keymap[91] || keymap[17]) ) {
+                    event.preventDefault();
+                    keymap ={};
+                    $.ajax({url: "savePrxDat", success: function(result){
+                        if(result.isSaved){
+                            console.log("Script saved");
+                            statusUpdate("Script saved");
+                        }else{
+                        $('.ui.sidebar').sidebar('show');
+                        }
+                        }});
+                }
+            });
+            
+            /*keymage('defmod-s', function() { 
+            
+            });*/
+            
+            
             $.fn.toggleClick = function(){
                 var methods = arguments, // store the passed arguments for future reference
                     count = methods.length; // cache the number of methods
