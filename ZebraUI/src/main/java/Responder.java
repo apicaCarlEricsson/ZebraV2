@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by carlericsson on 26/12/16.
@@ -31,18 +33,17 @@ public class Responder {
 
     }
 
-    public void listFiles() {
+    public String listFiles() {
         File folder = new File(System.getProperty("user.dir"));
         File[] listOfFiles = folder.listFiles();
+        List<String> classList = new ArrayList();
 
         for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile()) {
-                System.out.println("File " + listOfFiles[i].getName());
-            } else if (listOfFiles[i].isDirectory()) {
-                System.out.println("Directory " + listOfFiles[i].getName());
-
+            if (listOfFiles[i].isFile() && listOfFiles[i].getName().contains(".class")) {
+                classList.add(listOfFiles[i].getName().replace(".class",""));
             }
         }
+        return gson.toJson(classList.toArray());
     }
 
 }

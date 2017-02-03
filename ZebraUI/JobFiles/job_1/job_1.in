@@ -1,0 +1,12 @@
+loadedFromIP=127.0.0.1
+loadedFromLocalPath=/Users/carlericsson/Desktop/NewZebra/NewDesign/ZebraV2/ZebraUI/cldemoShow.class
+webAdminPmaTemplateFileName=
+execAgentDescription=Local Exec Agent
+clusterMemberLocalId=-1
+totalClusterMembers=-1
+clusterJobId=-1
+loadTestFilename=cldemoShow
+loadTestArgs=-u 1 -d 10 -t 60 -maxloops 1 -sampling 15 -percpage 100 -percurl 20 -maxerrmem 20
+remotePort=40002
+ticketId=-1
+extraClasspath=

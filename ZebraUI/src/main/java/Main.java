@@ -39,6 +39,8 @@ public class Main {
                 }
         );
 
+
+
         get("/openScript/:filename", (req, res) ->
             worker.reloadPrxDat(req.params(":filename")));
 
@@ -56,6 +58,12 @@ public class Main {
         get("/savePrxDat/:name", (req, res) -> {
             res.type("application/json");
             return worker.saveProject(req.params(":name"));
+
+        });
+
+        get("/listclassfiles", (req, res) -> {
+            res.type("application/json");
+            return responder.listFiles();
 
         });
 
@@ -116,9 +124,13 @@ public class Main {
         });
 
 
-        get("/runTest/:scriptName/:numUsers:/:maxLoops/:duration", (req, res) -> {
+        get("/runTest/:scriptName/:numUsers/:maxLoops/:duration", (req, res) -> {
             try {
-                return run.runJob(req.params(":scriptName"), Integer.parseInt(req.params(":numUsers")),Integer.parseInt(req.params(":maxLoops")),1,Integer.parseInt(req.params(":duration")),9999,"tls11");
+                int numUsers = Integer.parseInt(req.params(":numUsers"));
+                int maxLoops = Integer.parseInt(req.params(":maxLoops"));
+                int duration = Integer.parseInt(req.params(":duration"));
+
+                return run.runJob(req.params(":scriptName"), numUsers,maxLoops,1,duration,9999,"tls11");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -126,7 +138,7 @@ public class Main {
         });
 
         ProxySniffer console = new ProxySniffer();
-        console.main(new String[]{"-RESTAPIServer","-webadmin", "-ExecAgent", "-runtimedatadir", System.getProperty("user.dir"),"-jobdir",System.getProperty("user.dir")});
+        console.main(new String[]{"-RESTAPIServer","-webadmin", "-ExecAgent", "-runtimedatadir", System.getProperty("user.dir")+"/JobFiles","-jobdir",System.getProperty("user.dir")+"/JobFiles"});
 
     }
 

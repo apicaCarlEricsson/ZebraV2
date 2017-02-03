@@ -558,6 +558,8 @@
                     delaySetup: false,
                     transition: 'overlay'
                   });
+                populateLoadTestList();
+                
             }});
             var keymap = {};
             //Method for preventing default browser behavior for command and control + S
@@ -598,10 +600,18 @@
             }
 
             //Runs the load test job with the selected settings
-            $("#runLoadTestButton").click(function(){
+            $("#runLoadTestButton").click(function(event){
+                event.preventDefault();
                 var numUsers= $("#numUsersSelect").val();
                 var iterationsPerUser= $("#iterationsPerUserSelect").val();
                 var duration= $("#durationSelect").val();
+                var selectedTest= $("#selectedLoadTestSelect").val();
+                
+                console.log("runTest/"+selectedTest+"/"+numUsers+"/"+iterationsPerUser+"/"+duration);
+                
+                $.ajax({url:"runTest/"+selectedTest+"/"+numUsers+"/"+iterationsPerUser+"/"+duration, success:function(result){
+                    console.log("Running test");
+                }});
                 
                 
             });
@@ -611,8 +621,17 @@
                 $('.ui.sidebar').sidebar('show');
             });
             
+            //Gets a list of all class files in directory
             function populateLoadTestList(){
-                $("")
+                $.ajax({url:"listclassfiles", success: function(result){
+                    var select = $("#selectedLoadTestSelect");
+                    
+                    $.each(result, function(){
+                       select.append($("<option />").val(this).text(this)); 
+                    });
+                }});
+                
+                
             }
             //Save the script with a specific name
             $('#savePrxDatAs').click(function() {
@@ -648,6 +667,7 @@
               $.ajax({url:"generateLoadTest", success: function(result){
                 console.log("Load test generated");
                 statusUpdate("Load test generated");
+                populateLoadTestList();
               }});
             });
 

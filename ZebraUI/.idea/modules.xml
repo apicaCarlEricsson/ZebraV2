@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ZebraUI.iml" filepath="$PROJECT_DIR$/ZebraUI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zebraTester.iml" filepath="$PROJECT_DIR$/zebraTester.iml" />
     </modules>
   </component>
 </project>
