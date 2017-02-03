@@ -24,6 +24,8 @@ public class Main {
                 .registerTypeAdapter(HttpResponse.class, new HttpResponseSerializer())
                 .create();
 
+        responder.listFiles();
+
         port(7880);
 
         staticFiles.externalLocation(System.getProperty("user.dir")+"/web2");
@@ -113,9 +115,10 @@ public class Main {
             return "{\"generated\": true}";
         });
 
-        get("/runTest/:scriptName", (req, res) -> {
+
+        get("/runTest/:scriptName/:numUsers:/:maxLoops/:duration", (req, res) -> {
             try {
-                return run.runJob(req.params(":scriptName"), 1,1,1,60,9999,"tls11");
+                return run.runJob(req.params(":scriptName"), Integer.parseInt(req.params(":numUsers")),Integer.parseInt(req.params(":maxLoops")),1,Integer.parseInt(req.params(":duration")),9999,"tls11");
             } catch (Exception e) {
                 e.printStackTrace();
             }

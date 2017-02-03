@@ -16,7 +16,7 @@ public class Responder {
 
     Gson gson;
 
-    public Responder (){
+    public Responder() {
         gson = new Gson();
     }
 
@@ -31,15 +31,18 @@ public class Responder {
 
     }
 
-    class saveResponse {
-        String isSaved;
+    public void listFiles() {
+        File folder = new File(System.getProperty("user.dir"));
+        File[] listOfFiles = folder.listFiles();
 
-        public saveResponse (){
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile()) {
+                System.out.println("File " + listOfFiles[i].getName());
+            } else if (listOfFiles[i].isDirectory()) {
+                System.out.println("Directory " + listOfFiles[i].getName());
 
+            }
         }
     }
-
-
-
 
 }
