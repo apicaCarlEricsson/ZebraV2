@@ -147,7 +147,7 @@
                             <div class="six fields">
                                <div class="field">
                                 <label>Number of users</label>
-                                <select class="ui fluid dropdown">
+                                <select id="numUsersSelect" class="ui fluid dropdown">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -252,7 +252,7 @@
                                 </div>
                                 <div class="field">
                                 <label>Load test duration</label>
-                                <select class="ui fluid dropdown">
+                                <select id="durationSelect" class="ui fluid dropdown">
                                     <option value="1">1 second</option>
                                     <option value="2">2 seconds</option>
                                     <option value="3">3 seconds</option>
@@ -289,7 +289,7 @@
                                   </div>
                               <div class="field">
                                 <label>Max iterations per user</label>
-                                <select name="" id="" class="ui fluid dropdown">
+                                <select name="" id="iterationsPerUserSelect" class="ui fluid dropdown">
                                     <option value="0">Unlimited</option>
                                     <option value="1">1 iteration</option>
                                     <option value="2">2 iterations</option>
@@ -500,10 +500,12 @@
                               </div>
                               <div class="field">
                                 <label>Current script</label>
-                                <input placeholder="No Script Loaded" readonly="" type="text">
+                                  <select name="selectedLoadTestSelect" id="selectedLoadTestSelect" class="ui fluid dropdown">
+                                      
+                                  </select>
                               </div>
                               </div>
-                              <button class="ui olive button">Run</button>
+                              <button id="runLoadTestButton" class="ui olive button">Run</button>
                                 </form>
                               </div>
                         </div>
@@ -595,11 +597,23 @@
                 });
             }
 
+            //Runs the load test job with the selected settings
+            $("#runLoadTestButton").click(function(){
+                var numUsers= $("#numUsersSelect").val();
+                var iterationsPerUser= $("#iterationsPerUserSelect").val();
+                var duration= $("#durationSelect").val();
+                
+                
+            });
+            
             //Trigger for saving script with specific name
             $("#saveAsScriptButton").click(function() {
                 $('.ui.sidebar').sidebar('show');
             });
-
+            
+            function populateLoadTestList(){
+                $("")
+            }
             //Save the script with a specific name
             $('#savePrxDatAs').click(function() {
                 var saveAsName = $('#savePrxDatInput').val();
