@@ -1767,18 +1767,18 @@
 [debug] 	[NOT REQUIRED] org.scala-lang#jline;2.10.4!jline.jar
 [debug] 	[NOT REQUIRED] org.fusesource.jansi#jansi;1.4!jansi.jar
 [debug] :: resolution report :: resolve 2201ms :: artifacts dl 84ms
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT compile produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-compile.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT runtime produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-runtime.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT test produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-test.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT provided produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-provided.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT optional produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-optional.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT compile-internal produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-compile-internal.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT runtime-internal produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-runtime-internal.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT test-internal produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-test-internal.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT plugin produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-plugin.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT sources produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-sources.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT docs produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-docs.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT pom produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-pom.xml
-[debug] 	report for default#zebraui-build;0.1-SNAPSHOT scala-tool produced in /Users/carlericsson/Desktop/New Zebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-scala-tool.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT compile produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-compile.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT runtime produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-runtime.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT test produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-test.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT provided produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-provided.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT optional produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-optional.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT compile-internal produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-compile-internal.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT runtime-internal produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-runtime-internal.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT test-internal produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-test-internal.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT plugin produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-plugin.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT sources produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-sources.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT docs produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-docs.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT pom produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-pom.xml
+[debug] 	report for default#zebraui-build;0.1-SNAPSHOT scala-tool produced in /Users/carlericsson/Desktop/NewZebra/New Design/ZebraV2/ZebraUI/project/target/resolution-cache/reports/default-zebraui-build-scala-tool.xml
 [debug] 	resolve done (2201ms resolve - 84ms download)
 [info] Done updating.
